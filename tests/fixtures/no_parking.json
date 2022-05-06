@@ -1,0 +1,28 @@
+{
+    "nhits": 10260,
+    "parameters": {
+        "dataset": "parkeerplaatsen",
+        "rows": 2,
+        "start": 0,
+        "refine": {
+            "type_en_merk": "Parkeerplaats"
+        },
+        "format": "json",
+        "timezone": "UTC"
+    },
+    "records": [
+    ],
+    "facet_groups": [
+        {
+            "name": "type_en_merk",
+            "facets": [
+                {
+                    "name": "Parkeerplaats",
+                    "count": 10260,
+                    "state": "refined",
+                    "path": "Parkeerplaats"
+                }
+            ]
+        }
+    ]
+}
