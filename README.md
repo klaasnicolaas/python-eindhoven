@@ -174,7 +174,7 @@ SOFTWARE.
 [code-quality]: https://lgtm.com/projects/g/klaasnicolaas/python-parking-eindhoven/context:python
 [commits-shield]: https://img.shields.io/github/commit-activity/y/klaasnicolaas/python-parking-eindhoven.svg
 [commits-url]: https://github.com/klaasnicolaas/python-parking-eindhoven/commits/main
-[codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-parking-eindhoven/branch/main/graph/badge.svg?token=F6CE1S25NV
+[codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-parking-eindhoven/branch/main/graph/badge.svg?token=4AMI23ZT7C
 [codecov-url]: https://codecov.io/gh/klaasnicolaas/python-parking-eindhoven
 [forks-shield]: https://img.shields.io/github/forks/klaasnicolaas/python-parking-eindhoven.svg
 [forks-url]: https://github.com/klaasnicolaas/python-parking-eindhoven/network/members
