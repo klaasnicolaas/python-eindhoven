@@ -82,9 +82,13 @@ class ParkingEindhoven:
                 )
                 response.raise_for_status()
         except asyncio.TimeoutError as exception:
-            raise ParkingEindhovenConnectionError("blabla") from exception
+            raise ParkingEindhovenConnectionError(
+                "Timeout occurred while connecting to the Parking Eindhoven API."
+            ) from exception
         except (ClientError, ClientResponseError) as exception:
-            raise ParkingEindhovenConnectionError("blabla") from exception
+            raise ParkingEindhovenConnectionError(
+                "Error occurred while communicating with the Parking Eindhoven API."
+            ) from exception
 
         content_type = response.headers.get("Content-Type", "")
         if "application/json" not in content_type:
