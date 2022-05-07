@@ -31,7 +31,37 @@ class ParkingEindhoven:
     session: ClientSession | None = None
 
     _close_session: bool = False
-    _str_parking_type: str = ""
+
+    @staticmethod
+    async def define_type(parking_type: int) -> str:
+        """Define the parking type.
+
+        Args:
+            parking_type: The selected parking type number.
+
+        Returns:
+            The parking type as string.
+
+        Raises:
+            ParkingEindhovenTypeError: If the parking type is not valid.
+        """
+        if parking_type == 1:
+            result_type = "Parkeerplaats"
+        elif parking_type == 2:
+            result_type = "Parkeerplaats Vergunning"
+        elif parking_type == 3:
+            result_type = "Parkeerplaats Gehandicapten"
+        elif parking_type == 4:
+            result_type = "Parkeerplaats Afgekruist"
+        elif parking_type == 5:
+            result_type = "Parkeerplaats laden/lossen"
+        elif parking_type == 6:
+            result_type = "Parkeerplaats Electrisch opladen"
+        else:
+            raise ParkingEindhovenTypeError(
+                "The selected number does not match the list of parking types"
+            )
+        return result_type
 
     async def _request(
         self,
@@ -120,7 +150,7 @@ class ParkingEindhoven:
             params={
                 "dataset": "parkeerplaatsen",
                 "rows": rows,
-                "refine.type_en_merk": await self.define_type(),
+                "refine.type_en_merk": await self.define_type(self.parking_type),
             },
         )
 
@@ -132,34 +162,6 @@ class ParkingEindhoven:
         if not results:
             raise ParkingEindhovenResultsError("No parking locations were found")
         return results
-
-    async def define_type(self) -> str:
-        """Define the parking type.
-
-        Returns:
-            The parking type as string.
-
-        Raises:
-            ParkingEindhovenTypeError: If the parking type is not valid.
-        """
-        if self.parking_type == 1:
-            result_type = "Parkeerplaats"
-        elif self.parking_type == 2:
-            result_type = "Parkeerplaats Vergunning"
-        elif self.parking_type == 3:
-            result_type = "Parkeerplaats Gehandicapten"
-        elif self.parking_type == 4:
-            result_type = "Parkeerplaats Afgekruist"
-        elif self.parking_type == 5:
-            result_type = "Parkeerplaats laden/lossen"
-        elif self.parking_type == 6:
-            result_type = "Parkeerplaats Electrisch opladen"
-        else:
-            raise ParkingEindhovenTypeError(
-                "The selected number does not match the list of parking types"
-            )
-        self._str_parking_type = result_type
-        return self._str_parking_type
 
     async def close(self) -> None:
         """Close open client session."""
