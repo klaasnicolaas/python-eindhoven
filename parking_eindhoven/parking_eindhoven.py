@@ -2,14 +2,14 @@
 from __future__ import annotations
 
 import asyncio
-from collections.abc import Mapping
+import socket
 from dataclasses import dataclass
 from importlib import metadata
 from typing import Any
 
+import aiohttp
 import async_timeout
-from aiohttp.client import ClientError, ClientResponseError, ClientSession
-from aiohttp.hdrs import METH_GET
+from aiohttp import hdrs
 from yarl import URL
 
 from .exceptions import (
@@ -28,7 +28,7 @@ class ParkingEindhoven:
     parking_type: int
 
     request_timeout: float = 10.0
-    session: ClientSession | None = None
+    session: aiohttp.client.ClientSession | None = None
 
     _close_session: bool = False
 
@@ -67,9 +67,9 @@ class ParkingEindhoven:
         self,
         uri: str,
         *,
-        method: str = METH_GET,
-        params: Mapping[str, Any] | None = None,
-    ) -> dict[str, Any]:
+        method: str = hdrs.METH_GET,
+        params: dict[str, Any] | None = None,
+    ) -> Any:
         """Handle a request to the Parking Eindhoven API.
 
         Args:
@@ -98,7 +98,7 @@ class ParkingEindhoven:
         }
 
         if self.session is None:
-            self.session = ClientSession()
+            self.session = aiohttp.ClientSession()
             self._close_session = True
 
         try:
@@ -115,7 +115,7 @@ class ParkingEindhoven:
             raise ParkingEindhovenConnectionError(
                 "Timeout occurred while connecting to the Parking Eindhoven API."
             ) from exception
-        except (ClientError, ClientResponseError) as exception:
+        except (aiohttp.ClientError, socket.gaierror) as exception:
             raise ParkingEindhovenConnectionError(
                 "Error occurred while communicating with the Parking Eindhoven API."
             ) from exception
@@ -128,8 +128,7 @@ class ParkingEindhoven:
                 {"Content-Type": content_type, "response": text},
             )
 
-        response_data: dict[str, Any] = await response.json(content_type=None)
-        return response_data
+        return await response.json()
 
     async def locations(self, rows: int = 10) -> list[ParkingSpot]:
         """Get all the parking locations.
@@ -145,7 +144,7 @@ class ParkingEindhoven:
             ParkingEindhovenResultsError: When no results are found.
         """
         results: list[ParkingSpot] = []
-        data = await self._request(
+        locations = await self._request(
             "search/",
             params={
                 "dataset": "parkeerplaatsen",
@@ -154,7 +153,7 @@ class ParkingEindhoven:
             },
         )
 
-        for item in data["records"]:
+        for item in locations["records"]:
             try:
                 results.append(ParkingSpot.from_json(item))
             except KeyError as exception:
