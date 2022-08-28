@@ -25,8 +25,6 @@ from .models import ParkingSpot
 class ParkingEindhoven:
     """Main class for handling connections with the Parking Eindhoven API."""
 
-    parking_type: int
-
     request_timeout: float = 10.0
     session: aiohttp.client.ClientSession | None = None
 
@@ -43,25 +41,23 @@ class ParkingEindhoven:
             The parking type as string.
 
         Raises:
-            ParkingEindhovenTypeError: If the parking type is not valid.
+            ParkingEindhovenTypeError: If the parking type is not listed.
         """
-        if parking_type == 1:
-            result_type = "Parkeerplaats"
-        elif parking_type == 2:
-            result_type = "Parkeerplaats Vergunning"
-        elif parking_type == 3:
-            result_type = "Parkeerplaats Gehandicapten"
-        elif parking_type == 4:
-            result_type = "Parkeerplaats Afgekruist"
-        elif parking_type == 5:
-            result_type = "Parkeerplaats laden/lossen"
-        elif parking_type == 6:
-            result_type = "Parkeerplaats Electrisch opladen"
-        else:
+        options = {
+            1: "Parkeerplaats",
+            2: "Parkeerplaats Vergunning",
+            3: "Parkeerplaats Gehandicapten",
+            4: "Parkeerplaats Afgekruist",
+            5: "Parkeerplaats laden/lossen",
+            6: "Parkeerplaats Electrisch opladen",
+        }.get(parking_type)
+
+        # Check if the parking type is listed
+        if options is None:
             raise ParkingEindhovenTypeError(
                 "The selected number does not match the list of parking types"
             )
-        return result_type
+        return options
 
     async def _request(
         self,
@@ -130,17 +126,19 @@ class ParkingEindhoven:
 
         return await response.json()
 
-    async def locations(self, rows: int = 10) -> list[ParkingSpot]:
+    async def locations(
+        self, limit: int = 10, parking_type: int = 1
+    ) -> list[ParkingSpot]:
         """Get all the parking locations.
 
         Args:
-            rows: Number of rows to return.
+            limit: Number of rows to return.
+            parking_type: The selected parking type number.
 
         Returns:
             A list of ParkingSpot objects.
 
         Raises:
-            ParkingEindhovenError: If the data is not valid.
             ParkingEindhovenResultsError: When no results are found.
         """
         results: list[ParkingSpot] = []
@@ -148,16 +146,13 @@ class ParkingEindhoven:
             "search/",
             params={
                 "dataset": "parkeerplaatsen",
-                "rows": rows,
-                "refine.type_en_merk": await self.define_type(self.parking_type),
+                "rows": limit,
+                "refine.type_en_merk": await self.define_type(parking_type),
             },
         )
 
         for item in locations["records"]:
-            try:
-                results.append(ParkingSpot.from_json(item))
-            except KeyError as exception:
-                raise ParkingEindhovenError(f"Got wrong data: {item}") from exception
+            results.append(ParkingSpot.from_json(item))
         if not results:
             raise ParkingEindhovenResultsError("No parking locations were found")
         return results
