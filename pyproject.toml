@@ -28,6 +28,7 @@ packages = [
 aiohttp = ">=3.0.0"
 python = "^3.9"
 yarl = ">=1.6.0"
+pyproj = "^3.3.1"
 
 [tool.poetry.dev-dependencies]
 aresponses = "^2.1.6"
@@ -50,7 +51,7 @@ isort = "^5.10.1"
 mypy = "^0.971"
 pre-commit = "^2.20.0"
 pre-commit-hooks = "^4.3.0"
-pylint = "^2.14.5"
+pylint = "^2.15.0"
 pytest = "^7.1.2"
 pytest-asyncio = "^0.19.0"
 pytest-cov = "^3.0.0"

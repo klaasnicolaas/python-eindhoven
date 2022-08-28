@@ -30,7 +30,7 @@ async def test_json_request(aresponses: ResponsesMockServer) -> None:
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(parking_type=2, session=session)
+        client = ParkingEindhoven(session=session)
         response = await client._request("test")
         assert response is not None
         await client.close()
@@ -49,7 +49,7 @@ async def test_internal_session(aresponses: ResponsesMockServer) -> None:
             text=load_fixtures("parking.json"),
         ),
     )
-    async with ParkingEindhoven(parking_type=3) as client:
+    async with ParkingEindhoven() as client:
         await client._request("test")
 
 
@@ -66,7 +66,7 @@ async def test_timeout(aresponses: ResponsesMockServer) -> None:
     aresponses.add("data.eindhoven.nl", "/api/records/1.0/test", "GET", reponse_handler)
 
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(parking_type=4, session=session, request_timeout=0.1)
+        client = ParkingEindhoven(session=session, request_timeout=0.1)
         with pytest.raises(ParkingEindhovenConnectionError):
             assert await client._request("test")
 
@@ -86,7 +86,6 @@ async def test_content_type(aresponses: ResponsesMockServer) -> None:
 
     async with aiohttp.ClientSession() as session:
         client = ParkingEindhoven(
-            parking_type=1,
             session=session,
         )
         with pytest.raises(ParkingEindhovenError):
@@ -97,7 +96,7 @@ async def test_content_type(aresponses: ResponsesMockServer) -> None:
 async def test_client_error() -> None:
     """Test request client error from Eindhoven API."""
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(parking_type=1, session=session)
+        client = ParkingEindhoven(session=session)
         with patch.object(
             session, "request", side_effect=aiohttp.ClientError
         ), pytest.raises(ParkingEindhovenConnectionError):

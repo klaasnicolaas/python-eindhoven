@@ -5,7 +5,6 @@ from aresponses import ResponsesMockServer
 
 from parking_eindhoven import (
     ParkingEindhoven,
-    ParkingEindhovenError,
     ParkingEindhovenResultsError,
     ParkingEindhovenTypeError,
     ParkingSpot,
@@ -28,8 +27,8 @@ async def test_parking_model(aresponses: ResponsesMockServer) -> None:
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(parking_type=1, session=session)
-        locations: list[ParkingSpot] = await client.locations(1)
+        client = ParkingEindhoven(session=session)
+        locations: list[ParkingSpot] = await client.locations(parking_type=1, limit=1)
         for item in locations:
             assert item.spot_id is not None
             assert item.street is not None
@@ -37,8 +36,8 @@ async def test_parking_model(aresponses: ResponsesMockServer) -> None:
 
 
 @pytest.mark.asyncio
-async def test_wrong_parking_model(aresponses: ResponsesMockServer) -> None:
-    """Test a wrong parking model."""
+async def test_no_parking_type(aresponses: ResponsesMockServer) -> None:
+    """Test when parking_type doesn't exist."""
     aresponses.add(
         "data.eindhoven.nl",
         "/api/records/1.0/search/",
@@ -46,17 +45,16 @@ async def test_wrong_parking_model(aresponses: ResponsesMockServer) -> None:
         aresponses.Response(
             status=200,
             headers={"Content-Type": "application/json"},
-            text=load_fixtures("wrong_parking.json"),
+            text=load_fixtures("parking.json"),
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(parking_type=2, session=session)
-        with pytest.raises(ParkingEindhovenError):
-            locations: list[ParkingSpot] = await client.locations(1)
-            for item in locations:
-                assert item.spot_id is not None
-                assert item.street is not None
-                assert item.updated_at is not None
+        client = ParkingEindhoven(session=session)
+        with pytest.raises(ParkingEindhovenTypeError):
+            locations: list[ParkingSpot] = await client.locations(
+                parking_type=7, limit=1
+            )
+            assert locations == []
 
 
 @pytest.mark.asyncio
@@ -73,9 +71,11 @@ async def test_no_parking_results(aresponses: ResponsesMockServer) -> None:
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(parking_type=3, session=session)
+        client = ParkingEindhoven(session=session)
         with pytest.raises(ParkingEindhovenResultsError):
-            locations: list[ParkingSpot] = await client.locations(1)
+            locations: list[ParkingSpot] = await client.locations(
+                parking_type=3, limit=1
+            )
             assert locations == []
 
 
@@ -93,8 +93,8 @@ async def test_crossed_out_parking_types(aresponses: ResponsesMockServer) -> Non
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(parking_type=4, session=session)
-        locations: list[ParkingSpot] = await client.locations(1)
+        client = ParkingEindhoven(session=session)
+        locations: list[ParkingSpot] = await client.locations(parking_type=4, limit=1)
         for item in locations:
             assert item.spot_id == "875f9f4cdd316388bfa20e6710aac2d35add2531"
             assert item.street == "Veldmaarschalk Montgomerylaan"
@@ -115,8 +115,8 @@ async def test_loading_parking_types(aresponses: ResponsesMockServer) -> None:
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(parking_type=5, session=session)
-        locations: list[ParkingSpot] = await client.locations(1)
+        client = ParkingEindhoven(session=session)
+        locations: list[ParkingSpot] = await client.locations(parking_type=5, limit=1)
         for item in locations:
             assert item.spot_id == "c2f5fee912ee9da593e8224cd6f3cd8a6390dba1"
             assert item.street == "Stationsweg"
@@ -137,29 +137,9 @@ async def test_car_charging_parking_types(aresponses: ResponsesMockServer) -> No
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(parking_type=6, session=session)
-        locations: list[ParkingSpot] = await client.locations(1)
+        client = ParkingEindhoven(session=session)
+        locations: list[ParkingSpot] = await client.locations(parking_type=6, limit=1)
         for item in locations:
             assert item.spot_id == "9318b1236bce0c404dcf8bcbac22bdc72b3308ef"
             assert item.street == "Professor Dr Dorgelolaan"
             assert item.parking_type == "Parkeerplaats Electrisch opladen"
-
-
-@pytest.mark.asyncio
-async def test_no_parking_type(aresponses: ResponsesMockServer) -> None:
-    """Test when parking_type doesn't exist."""
-    aresponses.add(
-        "data.eindhoven.nl",
-        "/api/records/1.0/search/",
-        "GET",
-        aresponses.Response(
-            status=200,
-            headers={"Content-Type": "application/json"},
-            text=load_fixtures("parking.json"),
-        ),
-    )
-    async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(parking_type=7, session=session)
-        with pytest.raises(ParkingEindhovenTypeError):
-            locations: list[ParkingSpot] = await client.locations(1)
-            assert locations == []
