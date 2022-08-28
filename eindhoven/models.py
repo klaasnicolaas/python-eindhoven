@@ -33,10 +33,12 @@ class ParkingSpot:
         geo = data["geometry"]["coordinates"]
         return cls(
             spot_id=data["recordid"],
-            parking_type=attr["type_en_merk"],
-            street=attr["straat"],
-            number=attr["aantal"],
+            parking_type=attr.get("type_en_merk"),
+            street=attr.get("straat"),
+            number=attr.get("aantal"),
             longitude=geo[0],
             latitude=geo[1],
-            updated_at=data["record_timestamp"],
+            updated_at=datetime.strptime(
+                data["record_timestamp"], "%Y-%m-%dT%H:%M:%SZ"
+            ),
         )
