@@ -3,10 +3,10 @@ import aiohttp
 import pytest
 from aresponses import ResponsesMockServer
 
-from parking_eindhoven import (
-    ParkingEindhoven,
-    ParkingEindhovenResultsError,
-    ParkingEindhovenTypeError,
+from eindhoven import (
+    ODPEindhoven,
+    ODPEindhovenResultsError,
+    ODPEindhovenTypeError,
     ParkingSpot,
 )
 
@@ -27,7 +27,7 @@ async def test_parking_model(aresponses: ResponsesMockServer) -> None:
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(session=session)
+        client = ODPEindhoven(session=session)
         locations: list[ParkingSpot] = await client.locations(parking_type=1, limit=1)
         for item in locations:
             assert item.spot_id is not None
@@ -49,8 +49,8 @@ async def test_no_parking_type(aresponses: ResponsesMockServer) -> None:
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(session=session)
-        with pytest.raises(ParkingEindhovenTypeError):
+        client = ODPEindhoven(session=session)
+        with pytest.raises(ODPEindhovenTypeError):
             locations: list[ParkingSpot] = await client.locations(
                 parking_type=7, limit=1
             )
@@ -71,8 +71,8 @@ async def test_no_parking_results(aresponses: ResponsesMockServer) -> None:
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(session=session)
-        with pytest.raises(ParkingEindhovenResultsError):
+        client = ODPEindhoven(session=session)
+        with pytest.raises(ODPEindhovenResultsError):
             locations: list[ParkingSpot] = await client.locations(
                 parking_type=3, limit=1
             )
@@ -93,7 +93,7 @@ async def test_crossed_out_parking_types(aresponses: ResponsesMockServer) -> Non
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(session=session)
+        client = ODPEindhoven(session=session)
         locations: list[ParkingSpot] = await client.locations(parking_type=4, limit=1)
         for item in locations:
             assert item.spot_id == "875f9f4cdd316388bfa20e6710aac2d35add2531"
@@ -115,7 +115,7 @@ async def test_loading_parking_types(aresponses: ResponsesMockServer) -> None:
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(session=session)
+        client = ODPEindhoven(session=session)
         locations: list[ParkingSpot] = await client.locations(parking_type=5, limit=1)
         for item in locations:
             assert item.spot_id == "c2f5fee912ee9da593e8224cd6f3cd8a6390dba1"
@@ -137,7 +137,7 @@ async def test_car_charging_parking_types(aresponses: ResponsesMockServer) -> No
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(session=session)
+        client = ODPEindhoven(session=session)
         locations: list[ParkingSpot] = await client.locations(parking_type=6, limit=1)
         for item in locations:
             assert item.spot_id == "9318b1236bce0c404dcf8bcbac22bdc72b3308ef"

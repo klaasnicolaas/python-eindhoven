@@ -1,4 +1,4 @@
-"""Asynchroon Python client for the Parking Eindhoven API."""
+"""Asynchronous Python client providing Open Data information of Eindhoven."""
 from __future__ import annotations
 
 import asyncio
@@ -13,17 +13,17 @@ from aiohttp import hdrs
 from yarl import URL
 
 from .exceptions import (
-    ParkingEindhovenConnectionError,
-    ParkingEindhovenError,
-    ParkingEindhovenResultsError,
-    ParkingEindhovenTypeError,
+    ODPEindhovenConnectionError,
+    ODPEindhovenError,
+    ODPEindhovenResultsError,
+    ODPEindhovenTypeError,
 )
 from .models import ParkingSpot
 
 
 @dataclass
-class ParkingEindhoven:
-    """Main class for handling connections with the Parking Eindhoven API."""
+class ODPEindhoven:
+    """Main class for handling data fetching from Open Data Platform of Eindhoven."""
 
     request_timeout: float = 10.0
     session: aiohttp.client.ClientSession | None = None
@@ -41,7 +41,7 @@ class ParkingEindhoven:
             The parking type as string.
 
         Raises:
-            ParkingEindhovenTypeError: If the parking type is not listed.
+            ODPEindhovenTypeError: If the parking type is not listed.
         """
         options = {
             1: "Parkeerplaats",
@@ -54,7 +54,7 @@ class ParkingEindhoven:
 
         # Check if the parking type is listed
         if options is None:
-            raise ParkingEindhovenTypeError(
+            raise ODPEindhovenTypeError(
                 "The selected number does not match the list of parking types"
             )
         return options
@@ -66,7 +66,7 @@ class ParkingEindhoven:
         method: str = hdrs.METH_GET,
         params: dict[str, Any] | None = None,
     ) -> Any:
-        """Handle a request to the Parking Eindhoven API.
+        """Handle a request to the Open Data Platform API of Eindhoven.
 
         Args:
             uri: Request URI, without '/', for example, 'status'
@@ -75,13 +75,13 @@ class ParkingEindhoven:
 
         Returns:
             A Python dictionary (json) with the response from
-            the Parking Eindhoven API.
+            the Open Data Platform API of Eindhoven.
 
         Raises:
-            ParkingEindhovenConnectionError: An error occurred while
-                communicating with the Parking Eindhoven API.
-            ParkingEindhovenError: Received an unexpected response from
-                the Parking Eindhoven API
+            ODPEindhovenConnectionError: An error occurred while
+                communicating with the Open Data Platform API
+            ODPEindhovenError: Received an unexpected response from
+                the Open Data Platform API.
         """
         version = metadata.version(__package__)
         url = URL.build(
@@ -90,7 +90,7 @@ class ParkingEindhoven:
 
         headers = {
             "Accept": "application/json, text/plain",
-            "User-Agent": f"PythonParkingEindhoven/{version}",
+            "User-Agent": f"PythonEindhoven/{version}",
         }
 
         if self.session is None:
@@ -108,19 +108,19 @@ class ParkingEindhoven:
                 )
                 response.raise_for_status()
         except asyncio.TimeoutError as exception:
-            raise ParkingEindhovenConnectionError(
-                "Timeout occurred while connecting to the Parking Eindhoven API."
+            raise ODPEindhovenConnectionError(
+                "Timeout occurred while connecting to the Open Data Platform API."
             ) from exception
         except (aiohttp.ClientError, socket.gaierror) as exception:
-            raise ParkingEindhovenConnectionError(
-                "Error occurred while communicating with the Parking Eindhoven API."
+            raise ODPEindhovenConnectionError(
+                "Error occurred while communicating with the Open Data Platform API."
             ) from exception
 
         content_type = response.headers.get("Content-Type", "")
         if "application/json" not in content_type:
             text = await response.text()
-            raise ParkingEindhovenError(
-                "Unexpected response from the Parking Eindhoven API",
+            raise ODPEindhovenError(
+                "Unexpected content type response from the Open Data Platform API",
                 {"Content-Type": content_type, "response": text},
             )
 
@@ -139,7 +139,7 @@ class ParkingEindhoven:
             A list of ParkingSpot objects.
 
         Raises:
-            ParkingEindhovenResultsError: When no results are found.
+            ODPEindhovenResultsError: When no results are found.
         """
         results: list[ParkingSpot] = []
         locations = await self._request(
@@ -154,7 +154,7 @@ class ParkingEindhoven:
         for item in locations["records"]:
             results.append(ParkingSpot.from_json(item))
         if not results:
-            raise ParkingEindhovenResultsError("No parking locations were found")
+            raise ODPEindhovenResultsError("No parking locations were found")
         return results
 
     async def close(self) -> None:
@@ -162,11 +162,11 @@ class ParkingEindhoven:
         if self.session and self._close_session:
             await self.session.close()
 
-    async def __aenter__(self) -> ParkingEindhoven:
+    async def __aenter__(self) -> ODPEindhoven:
         """Async enter.
 
         Returns:
-            The Parking Eindhoven object.
+            The Open Data Platform Eindhoven object.
         """
         return self
 

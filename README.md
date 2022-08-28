@@ -1,4 +1,4 @@
-## Python - Parking Eindhoven Client
+## Python - ODP Eindhoven Client
 
 <!-- PROJECT SHIELDS -->
 [![GitHub Release][releases-shield]][releases]
@@ -20,27 +20,36 @@
 [![Build Status][build-shield]][build-url]
 [![Typing Status][typing-shield]][typing-url]
 
-Asynchronous Python client for the parking locations in Eindhoven (The Netherlands).
+Asynchronous Python client for the open datasets of Eindhoven (The Netherlands).
 
 ## About
 
-A python package with which you can retrieve the parking locations from the municipality of Eindhoven via [their API][api].
+A python package with which you can retrieve data from the Open Data Platform of Eindhoven via [their API][api]. This package was initially created to only retrieve parking data from the API, but the code base is made in such a way that it is easy to extend for other datasets from the same platform.
 
 ## Installation
 
 ```bash
-pip install parking-eindhoven
+pip install eindhoven
 ```
 
-## Usage
+## Datasets
 
-There are a number of parameters you can set to retrieve the data:
+You can read the following datasets with this package:
+
+- [Parking spots / Parkeerplaatsen][parking]
+
+<details>
+    <summary>Click here to get more details</summary>
+
+### Parkings spots
+
+You can use the following parameters in your request:
 
 - **limit** (default: 10) - How many results you want to retrieve.
 - **parking_type** (default: 1) - See the list below to find the corresponding number.
 
 | parking_type | number |
-| ------------ | :----: |
+| :----------- | :----: |
 | Parkeerplaats | 1 |
 | Parkeerplaats Vergunning | 2 |
 | Parkeerplaats Gehandicapten | 3 |
@@ -48,17 +57,30 @@ There are a number of parameters you can set to retrieve the data:
 | Parkeerplaats laden/lossen | 5 |
 | Parkeerplaats Electrisch opladen | 6 |
 
+You get the following output data back with this python package:
+
+| Variable | Type | Description |
+| :------- | :--- | :---------- |
+| `spot_id` | string | The id of the parking spot |
+| `parking_type` | string | The type of parking of the parking spot |
+| `street` | string | The street name where this parking spot is located |
+| `number` | int | The number of parkings spots on this location |
+| `longitude` | float | The longitude of the parking spot |
+| `latitude` | float | The latitude of the parking spot |
+| `updated_at` | datetime | When this parking spot was updated in the dataset |
+</details>
+
 ### Example
 
 ```python
 import asyncio
 
-from parking_eindhoven import ParkingEindhoven
+from eindhoven import ODPEindhoven
 
 
 async def main() -> None:
-    """Show example on using the Parking Eindhoven API client."""
-    async with ParkingEindhoven() as client:
+    """Show example on using the Open Data Platform API of Eindhoven."""
+    async with ODPEindhoven() as client:
         locations = await client.locations(limit=100, parking_type=4)
         print(locations)
 
@@ -67,23 +89,11 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## Data
-
-You can read the following data with this package:
-
-- ID of the parking spot
-- Parking type (what you have chosen above)
-- Street
-- Number (how many parking spots are available at the spot)
-- Longitude
-- Latitude
-- Updated at (date when there was a change in the database)
-
 ## Use cases
 
 [NIPKaart.nl][nipkaart]
 
-A website that provides insight with a map where disabled parking spaces are in the Netherlands, based on data from users and municipalities.
+A website that provides insight into where disabled parking spaces are, based on data from users and municipalities. Operates mainly in the Netherlands, but also has plans to process data from abroad.
 
 ## Contributing
 
@@ -165,36 +175,37 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[api]: https://data.eindhoven.nl/explore/dataset/parkeerplaatsen/information
+[api]: https://data.eindhoven.nl
+[parking]: https://data.eindhoven.nl/explore/dataset/parkeerplaatsen/information
 [nipkaart]: https://www.nipkaart.nl
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[build-shield]: https://github.com/klaasnicolaas/python-parking-eindhoven/actions/workflows/tests.yaml/badge.svg
-[build-url]: https://github.com/klaasnicolaas/python-parking-eindhoven/actions/workflows/tests.yaml
-[code-quality-shield]: https://img.shields.io/lgtm/grade/python/g/klaasnicolaas/python-parking-eindhoven.svg?logo=lgtm&logoWidth=18
-[code-quality]: https://lgtm.com/projects/g/klaasnicolaas/python-parking-eindhoven/context:python
-[commits-shield]: https://img.shields.io/github/commit-activity/y/klaasnicolaas/python-parking-eindhoven.svg
-[commits-url]: https://github.com/klaasnicolaas/python-parking-eindhoven/commits/main
-[codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-parking-eindhoven/branch/main/graph/badge.svg?token=4AMI23ZT7C
-[codecov-url]: https://codecov.io/gh/klaasnicolaas/python-parking-eindhoven
-[forks-shield]: https://img.shields.io/github/forks/klaasnicolaas/python-parking-eindhoven.svg
-[forks-url]: https://github.com/klaasnicolaas/python-parking-eindhoven/network/members
-[issues-shield]: https://img.shields.io/github/issues/klaasnicolaas/python-parking-eindhoven.svg
-[issues-url]: https://github.com/klaasnicolaas/python-parking-eindhoven/issues
-[license-shield]: https://img.shields.io/github/license/klaasnicolaas/python-parking-eindhoven.svg
-[last-commit-shield]: https://img.shields.io/github/last-commit/klaasnicolaas/python-parking-eindhoven.svg
+[build-shield]: https://github.com/klaasnicolaas/python-eindhoven/actions/workflows/tests.yaml/badge.svg
+[build-url]: https://github.com/klaasnicolaas/python-eindhoven/actions/workflows/tests.yaml
+[code-quality-shield]: https://img.shields.io/lgtm/grade/python/g/klaasnicolaas/python-eindhoven.svg?logo=lgtm&logoWidth=18
+[code-quality]: https://lgtm.com/projects/g/klaasnicolaas/python-eindhoven/context:python
+[commits-shield]: https://img.shields.io/github/commit-activity/y/klaasnicolaas/python-eindhoven.svg
+[commits-url]: https://github.com/klaasnicolaas/python-eindhoven/commits/main
+[codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-eindhoven/branch/main/graph/badge.svg?token=4AMI23ZT7C
+[codecov-url]: https://codecov.io/gh/klaasnicolaas/python-eindhoven
+[forks-shield]: https://img.shields.io/github/forks/klaasnicolaas/python-eindhoven.svg
+[forks-url]: https://github.com/klaasnicolaas/python-eindhoven/network/members
+[issues-shield]: https://img.shields.io/github/issues/klaasnicolaas/python-eindhoven.svg
+[issues-url]: https://github.com/klaasnicolaas/python-eindhoven/issues
+[license-shield]: https://img.shields.io/github/license/klaasnicolaas/python-eindhoven.svg
+[last-commit-shield]: https://img.shields.io/github/last-commit/klaasnicolaas/python-eindhoven.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2022.svg
 [maintainability-shield]: https://api.codeclimate.com/v1/badges/5756f943554d4c6ffa9f/maintainability
-[maintainability-url]: https://codeclimate.com/github/klaasnicolaas/python-parking-eindhoven/maintainability
+[maintainability-url]: https://codeclimate.com/github/klaasnicolaas/python-eindhoven/maintainability
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.svg
-[pypi]: https://pypi.org/project/parking-eindhoven/
-[python-versions-shield]: https://img.shields.io/pypi/pyversions/parking-eindhoven
-[typing-shield]: https://github.com/klaasnicolaas/python-parking-eindhoven/actions/workflows/typing.yaml/badge.svg
-[typing-url]: https://github.com/klaasnicolaas/python-parking-eindhoven/actions/workflows/typing.yaml
-[releases-shield]: https://img.shields.io/github/release/klaasnicolaas/python-parking-eindhoven.svg
-[releases]: https://github.com/klaasnicolaas/python-parking-eindhoven/releases
-[stars-shield]: https://img.shields.io/github/stars/klaasnicolaas/python-parking-eindhoven.svg
-[stars-url]: https://github.com/klaasnicolaas/python-parking-eindhoven/stargazers
+[pypi]: https://pypi.org/project/eindhoven/
+[python-versions-shield]: https://img.shields.io/pypi/pyversions/eindhoven
+[typing-shield]: https://github.com/klaasnicolaas/python-eindhoven/actions/workflows/typing.yaml/badge.svg
+[typing-url]: https://github.com/klaasnicolaas/python-eindhoven/actions/workflows/typing.yaml
+[releases-shield]: https://img.shields.io/github/release/klaasnicolaas/python-eindhoven.svg
+[releases]: https://github.com/klaasnicolaas/python-eindhoven/releases
+[stars-shield]: https://img.shields.io/github/stars/klaasnicolaas/python-eindhoven.svg
+[stars-url]: https://github.com/klaasnicolaas/python-eindhoven/stargazers
 
 [poetry-install]: https://python-poetry.org/docs/#installation
 [poetry]: https://python-poetry.org
