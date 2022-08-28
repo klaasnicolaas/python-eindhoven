@@ -1,14 +1,14 @@
 # pylint: disable=W0621
-"""Asynchronous Python client for the Parking Eindhoven API."""
+"""Asynchronous Python client for the Open Data Platform API of Eindhoven."""
 
 import asyncio
 
-from parking_eindhoven import ParkingEindhoven
+from eindhoven import ODPEindhoven
 
 
 async def main() -> None:
-    """Show example on using the Parking Eindhoven API client."""
-    async with ParkingEindhoven() as client:
+    """Show example on using the Open Data Platform API of Eindhoven."""
+    async with ODPEindhoven() as client:
         locations = await client.locations(limit=200, parking_type=3)
         count: int
 

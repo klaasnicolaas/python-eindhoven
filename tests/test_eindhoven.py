@@ -1,4 +1,4 @@
-"""Basic tests for the Parking Eindhoven API."""
+"""Basic tests for the Open Data Platform API of Eindhoven."""
 # pylint: disable=protected-access
 import asyncio
 from unittest.mock import patch
@@ -7,11 +7,8 @@ import aiohttp
 import pytest
 from aresponses import Response, ResponsesMockServer
 
-from parking_eindhoven import ParkingEindhoven
-from parking_eindhoven.exceptions import (
-    ParkingEindhovenConnectionError,
-    ParkingEindhovenError,
-)
+from eindhoven import ODPEindhoven
+from eindhoven.exceptions import ODPEindhovenConnectionError, ODPEindhovenError
 
 from . import load_fixtures
 
@@ -30,7 +27,7 @@ async def test_json_request(aresponses: ResponsesMockServer) -> None:
         ),
     )
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(session=session)
+        client = ODPEindhoven(session=session)
         response = await client._request("test")
         assert response is not None
         await client.close()
@@ -49,13 +46,13 @@ async def test_internal_session(aresponses: ResponsesMockServer) -> None:
             text=load_fixtures("parking.json"),
         ),
     )
-    async with ParkingEindhoven() as client:
+    async with ODPEindhoven() as client:
         await client._request("test")
 
 
 @pytest.mark.asyncio
 async def test_timeout(aresponses: ResponsesMockServer) -> None:
-    """Test request timeout from Parking Eindhoven."""
+    """Test request timeout is handled correctly."""
     # Faking a timeout by sleeping
     async def reponse_handler(_: aiohttp.ClientResponse) -> Response:
         await asyncio.sleep(0.2)
@@ -66,14 +63,14 @@ async def test_timeout(aresponses: ResponsesMockServer) -> None:
     aresponses.add("data.eindhoven.nl", "/api/records/1.0/test", "GET", reponse_handler)
 
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(session=session, request_timeout=0.1)
-        with pytest.raises(ParkingEindhovenConnectionError):
+        client = ODPEindhoven(session=session, request_timeout=0.1)
+        with pytest.raises(ODPEindhovenConnectionError):
             assert await client._request("test")
 
 
 @pytest.mark.asyncio
 async def test_content_type(aresponses: ResponsesMockServer) -> None:
-    """Test request content type error from P1 Monitor."""
+    """Test request content type error is handled correctly."""
     aresponses.add(
         "data.eindhoven.nl",
         "/api/records/1.0/test",
@@ -85,19 +82,19 @@ async def test_content_type(aresponses: ResponsesMockServer) -> None:
     )
 
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(
+        client = ODPEindhoven(
             session=session,
         )
-        with pytest.raises(ParkingEindhovenError):
+        with pytest.raises(ODPEindhovenError):
             assert await client._request("test")
 
 
 @pytest.mark.asyncio
 async def test_client_error() -> None:
-    """Test request client error from Eindhoven API."""
+    """Test request client error is handled correctly."""
     async with aiohttp.ClientSession() as session:
-        client = ParkingEindhoven(session=session)
+        client = ODPEindhoven(session=session)
         with patch.object(
             session, "request", side_effect=aiohttp.ClientError
-        ), pytest.raises(ParkingEindhovenConnectionError):
+        ), pytest.raises(ODPEindhovenConnectionError):
             assert await client._request("test")

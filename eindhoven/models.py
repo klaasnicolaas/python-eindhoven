@@ -1,4 +1,4 @@
-"""Models for parking eindhoven."""
+"""Models for Open Data Platform of Eindhoven."""
 from __future__ import annotations
 
 from dataclasses import dataclass

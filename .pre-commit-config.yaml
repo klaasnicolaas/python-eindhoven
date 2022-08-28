@@ -7,7 +7,7 @@ repos:
         language: system
         types: [python]
         entry: poetry run bandit
-        files: ^parking_eindhoven/
+        files: ^eindhoven/
         require_serial: true
       - id: black
         name: ☕️ Format using black
