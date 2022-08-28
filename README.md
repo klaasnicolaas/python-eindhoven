@@ -34,18 +34,19 @@ pip install parking-eindhoven
 
 ## Usage
 
-There are a number of variables you can set to retrieve the data:
+There are a number of parameters you can set to retrieve the data:
 
-- **parking_type** - See the list below to find the corresponding number.
-    | **parking_type** | **number** |
-    | --- | --- |
-    | Parkeerplaats | 1 |
-    | Parkeerplaats Vergunning | 2 |
-    | Parkeerplaats Gehandicapten | 3 |
-    | Parkeerplaats Afgekruist | 4 |
-    | Parkeerplaats laden/lossen | 5 |
-    | Parkeerplaats Electrisch opladen | 6 |
-- **rows** (default: 10) - How many results you want to retrieve.
+- **limit** (default: 10) - How many results you want to retrieve.
+- **parking_type** (default: 1) - See the list below to find the corresponding number.
+
+| parking_type | number |
+| ------------ | :----: |
+| Parkeerplaats | 1 |
+| Parkeerplaats Vergunning | 2 |
+| Parkeerplaats Gehandicapten | 3 |
+| Parkeerplaats Afgekruist | 4 |
+| Parkeerplaats laden/lossen | 5 |
+| Parkeerplaats Electrisch opladen | 6 |
 
 ### Example
 
@@ -57,8 +58,8 @@ from parking_eindhoven import ParkingEindhoven
 
 async def main() -> None:
     """Show example on using the Parking Eindhoven API client."""
-    async with ParkingEindhoven(parking_type=4) as client:
-        locations = await client.locations(rows=100)
+    async with ParkingEindhoven() as client:
+        locations = await client.locations(limit=100, parking_type=4)
         print(locations)
 
 
