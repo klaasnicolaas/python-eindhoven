@@ -1,4 +1,6 @@
 """Test the models."""
+from datetime import datetime
+
 import aiohttp
 import pytest
 from aresponses import ResponsesMockServer
@@ -30,9 +32,23 @@ async def test_parking_model(aresponses: ResponsesMockServer) -> None:
         client = ODPEindhoven(session=session)
         locations: list[ParkingSpot] = await client.locations(parking_type=1, limit=1)
         for item in locations:
-            assert item.spot_id is not None
-            assert item.street is not None
-            assert item.updated_at is not None
+            assert (
+                item.spot_id == "b124abb045f038a12a255e410ccfceb49dba7c77"
+                and isinstance(item.spot_id, str)
+            )
+            assert item.street == "Marconilaan" and isinstance(item.street, str)
+            assert item.parking_type == "Parkeerplaats" and isinstance(
+                item.parking_type, str
+            )
+            assert item.updated_at == datetime(
+                2022, 9, 1, 21, 45, 3, 599000
+            ) and isinstance(item.updated_at, datetime)
+            assert item.longitude == 5.457883100818987 and isinstance(
+                item.longitude, float
+            )
+            assert item.latitude == 51.450176173744275 and isinstance(
+                item.latitude, float
+            )
 
 
 @pytest.mark.asyncio
@@ -96,9 +112,25 @@ async def test_crossed_out_parking_types(aresponses: ResponsesMockServer) -> Non
         client = ODPEindhoven(session=session)
         locations: list[ParkingSpot] = await client.locations(parking_type=4, limit=1)
         for item in locations:
-            assert item.spot_id == "875f9f4cdd316388bfa20e6710aac2d35add2531"
-            assert item.street == "Veldmaarschalk Montgomerylaan"
-            assert item.parking_type == "Parkeerplaats Afgekruist"
+            assert (
+                item.spot_id == "875f9f4cdd316388bfa20e6710aac2d35add2531"
+                and isinstance(item.spot_id, str)
+            )
+            assert item.street == "Veldmaarschalk Montgomerylaan" and isinstance(
+                item.street, str
+            )
+            assert item.parking_type == "Parkeerplaats Afgekruist" and isinstance(
+                item.parking_type, str
+            )
+            assert item.updated_at == datetime(
+                2022, 9, 1, 21, 45, 3, 599000
+            ) and isinstance(item.updated_at, datetime)
+            assert item.longitude == 5.477020648373145 and isinstance(
+                item.longitude, float
+            )
+            assert item.latitude == 51.44925539150587 and isinstance(
+                item.latitude, float
+            )
 
 
 @pytest.mark.asyncio
@@ -118,9 +150,23 @@ async def test_loading_parking_types(aresponses: ResponsesMockServer) -> None:
         client = ODPEindhoven(session=session)
         locations: list[ParkingSpot] = await client.locations(parking_type=5, limit=1)
         for item in locations:
-            assert item.spot_id == "c2f5fee912ee9da593e8224cd6f3cd8a6390dba1"
-            assert item.street == "Stationsweg"
-            assert item.parking_type == "Parkeerplaats laden/lossen"
+            assert (
+                item.spot_id == "c2f5fee912ee9da593e8224cd6f3cd8a6390dba1"
+                and isinstance(item.spot_id, str)
+            )
+            assert item.street == "Stationsweg" and isinstance(item.street, str)
+            assert item.parking_type == "Parkeerplaats laden/lossen" and isinstance(
+                item.parking_type, str
+            )
+            assert item.updated_at == datetime(
+                2022, 9, 1, 21, 45, 3, 599000
+            ) and isinstance(item.updated_at, datetime)
+            assert item.longitude == 5.48124495540772 and isinstance(
+                item.longitude, float
+            )
+            assert item.latitude == 51.441680658515224 and isinstance(
+                item.latitude, float
+            )
 
 
 @pytest.mark.asyncio
@@ -140,6 +186,23 @@ async def test_car_charging_parking_types(aresponses: ResponsesMockServer) -> No
         client = ODPEindhoven(session=session)
         locations: list[ParkingSpot] = await client.locations(parking_type=6, limit=1)
         for item in locations:
-            assert item.spot_id == "9318b1236bce0c404dcf8bcbac22bdc72b3308ef"
-            assert item.street == "Professor Dr Dorgelolaan"
-            assert item.parking_type == "Parkeerplaats Electrisch opladen"
+            assert (
+                item.spot_id == "9318b1236bce0c404dcf8bcbac22bdc72b3308ef"
+                and isinstance(item.spot_id, str)
+            )
+            assert item.street == "Professor Dr Dorgelolaan" and isinstance(
+                item.street, str
+            )
+            assert (
+                item.parking_type == "Parkeerplaats Electrisch opladen"
+                and isinstance(item.parking_type, str)
+            )
+            assert item.updated_at == datetime(
+                2022, 9, 1, 21, 45, 3, 599000
+            ) and isinstance(item.updated_at, datetime)
+            assert item.longitude == 5.484090179656346 and isinstance(
+                item.longitude, float
+            )
+            assert item.latitude == 51.44487067822449 and isinstance(
+                item.latitude, float
+            )
