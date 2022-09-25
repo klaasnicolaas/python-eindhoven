@@ -2,7 +2,7 @@
     "nhits": 10260,
     "parameters": {
         "dataset": "parkeerplaatsen",
-        "rows": 2,
+        "rows": 1,
         "start": 0,
         "refine": {
             "type_en_merk": "Parkeerplaats"
@@ -13,61 +13,32 @@
     "records": [
         {
             "datasetid": "parkeerplaatsen",
-            "recordid": "7902a02c7e53b590c95563f48af7f8181dad8884",
+            "recordid": "b124abb045f038a12a255e410ccfceb49dba7c77",
             "fields": {
-                "straat": "Veldmaarschalk Montgomerylaan",
+                "straat": "Marconilaan",
                 "type_en_merk": "Parkeerplaats",
                 "geo_point_2d": [
-                    51.445575257690564,
-                    5.470836058595791
+                    51.450176173744275,
+                    5.457883100818987
                 ],
                 "geo_shape": {
                     "coordinates": [
-                        5.470836058595791,
-                        51.445575257690564
+                        5.457883100818987,
+                        51.450176173744275
                     ],
                     "type": "Point"
                 },
                 "aantal": 1.0,
-                "objectid": 101
+                "objectid": 95
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    5.470836058595791,
-                    51.445575257690564
+                    5.457883100818987,
+                    51.450176173744275
                 ]
             },
-            "record_timestamp": "2022-08-01T21:45:03Z"
-        },
-        {
-            "datasetid": "parkeerplaatsen",
-            "recordid": "7c1f17204d4c5dfe8ea2d52814765279ed7782b6",
-            "fields": {
-                "straat": "Veldmaarschalk Montgomerylaan",
-                "type_en_merk": "Parkeerplaats",
-                "geo_point_2d": [
-                    51.445463318323576,
-                    5.470953417483847
-                ],
-                "geo_shape": {
-                    "coordinates": [
-                        5.470953417483847,
-                        51.445463318323576
-                    ],
-                    "type": "Point"
-                },
-                "aantal": 1.0,
-                "objectid": 104
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    5.470953417483847,
-                    51.445463318323576
-                ]
-            },
-            "record_timestamp": "2022-08-01T21:45:03Z"
+            "record_timestamp": "2022-09-01T21:45:03.599Z"
         }
     ],
     "facet_groups": [
