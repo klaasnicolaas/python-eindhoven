@@ -6,13 +6,16 @@ updates:
     schedule:
       interval: daily
       time: "02:00"
+      timezone: Europe/Amsterdam
   - package-ecosystem: pip
     directory: "/.github/workflows"
     schedule:
       interval: daily
       time: "02:00"
+      timezone: Europe/Amsterdam
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: daily
       time: "02:00"
+      timezone: Europe/Amsterdam
