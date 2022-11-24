@@ -1,5 +1,5 @@
 <!-- Banner -->
-![alt Banner of the eindhoven package](assets/banner_eindhoven.png)
+![alt Banner of the eindhoven package](assets/header_eindhoven-min.png)
 
 <!-- PROJECT SHIELDS -->
 [![GitHub Release][releases-shield]][releases]
