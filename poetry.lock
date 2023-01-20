@@ -439,21 +439,6 @@ files = [
 
 [[package]]
 name = "dill"
-version = "0.3.5.1"
-description = "serialize all of python"
-category = "dev"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, !=3.6.*"
-files = [
-    {file = "dill-0.3.5.1-py2.py3-none-any.whl", hash = "sha256:33501d03270bbe410c72639b350e941882a8b0fd55357580fbc873fba0c59302"},
-    {file = "dill-0.3.5.1.tar.gz", hash = "sha256:d75e41f3eff1eee599d738e76ba8f4ad98ea229db8b085318aa2b3333a208c86"},
-]
-
-[package.extras]
-graph = ["objgraph (>=1.7.2)"]
-
-[[package]]
-name = "dill"
 version = "0.3.6"
 description = "serialize all of python"
 category = "dev"
@@ -598,14 +583,14 @@ dev = ["coverage", "hypothesis", "hypothesmith (>=0.2)", "pre-commit", "tox"]
 
 [[package]]
 name = "flake8-builtins"
-version = "2.0.1"
+version = "2.1.0"
 description = "Check for python builtins being used as variables or parameters."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "flake8-builtins-2.0.1.tar.gz", hash = "sha256:5aeb420130efe8acbdaf8708a582492413293a3ca25653518f687937879650a5"},
-    {file = "flake8_builtins-2.0.1-py3-none-any.whl", hash = "sha256:a5b9ca9cbc921c4455ea02e2e9963c990ac66d028c15b654625e012a1e3bbb4d"},
+    {file = "flake8-builtins-2.1.0.tar.gz", hash = "sha256:12ff1ee96dd4e1f3141141ee6c45a5c7d3b3c440d0949e9b8d345c42b39c51d4"},
+    {file = "flake8_builtins-2.1.0-py3-none-any.whl", hash = "sha256:469e8f03d6d0edf4b1e62b6d5a97dce4598592c8a13ec8f0952e7a185eba50a1"},
 ]
 
 [package.dependencies]
