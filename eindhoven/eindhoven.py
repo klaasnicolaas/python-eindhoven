@@ -7,9 +7,9 @@ from dataclasses import dataclass
 from importlib import metadata
 from typing import Any
 
-import aiohttp
 import async_timeout
-from aiohttp import hdrs
+from aiohttp import ClientError, ClientSession
+from aiohttp.hdrs import METH_GET
 from yarl import URL
 
 from .exceptions import (
@@ -26,7 +26,7 @@ class ODPEindhoven:
     """Main class for handling data fetching from Open Data Platform of Eindhoven."""
 
     request_timeout: float = 10.0
-    session: aiohttp.client.ClientSession | None = None
+    session: ClientSession | None = None
 
     _close_session: bool = False
 
@@ -37,10 +37,12 @@ class ODPEindhoven:
         Args:
             parking_type: The selected parking type number.
 
-        Returns:
+        Returns
+        -------
             The parking type as string.
 
-        Raises:
+        Raises
+        ------
             ODPEindhovenTypeError: If the parking type is not listed.
         """
         options = {
@@ -54,8 +56,9 @@ class ODPEindhoven:
 
         # Check if the parking type is listed
         if options is None:
+            msg = "The selected number does not match the list of parking types"
             raise ODPEindhovenTypeError(
-                "The selected number does not match the list of parking types"
+                msg,
             )
         return options
 
@@ -63,7 +66,7 @@ class ODPEindhoven:
         self,
         uri: str,
         *,
-        method: str = hdrs.METH_GET,
+        method: str = METH_GET,
         params: dict[str, Any] | None = None,
     ) -> Any:
         """Handle a request to the Open Data Platform API of Eindhoven.
@@ -73,11 +76,13 @@ class ODPEindhoven:
             method: HTTP method to use, for example, 'GET'
             params: Extra options to improve or limit the response.
 
-        Returns:
+        Returns
+        -------
             A Python dictionary (json) with the response from
             the Open Data Platform API of Eindhoven.
 
-        Raises:
+        Raises
+        ------
             ODPEindhovenConnectionError: An error occurred while
                 communicating with the Open Data Platform API
             ODPEindhovenError: Received an unexpected response from
@@ -85,7 +90,9 @@ class ODPEindhoven:
         """
         version = metadata.version(__package__)
         url = URL.build(
-            scheme="https", host="data.eindhoven.nl", path="/api/records/1.0/"
+            scheme="https",
+            host="data.eindhoven.nl",
+            path="/api/records/1.0/",
         ).join(URL(uri))
 
         headers = {
@@ -94,7 +101,7 @@ class ODPEindhoven:
         }
 
         if self.session is None:
-            self.session = aiohttp.ClientSession()
+            self.session = ClientSession()
             self._close_session = True
 
         try:
@@ -108,26 +115,31 @@ class ODPEindhoven:
                 )
                 response.raise_for_status()
         except asyncio.TimeoutError as exception:
+            msg = "Timeout occurred while connecting to the Open Data Platform API."
             raise ODPEindhovenConnectionError(
-                "Timeout occurred while connecting to the Open Data Platform API."
+                msg,
             ) from exception
-        except (aiohttp.ClientError, socket.gaierror) as exception:
+        except (ClientError, socket.gaierror) as exception:
+            msg = "Error occurred while communicating with the Open Data Platform API."
             raise ODPEindhovenConnectionError(
-                "Error occurred while communicating with the Open Data Platform API."
+                msg,
             ) from exception
 
         content_type = response.headers.get("Content-Type", "")
         if "application/json" not in content_type:
             text = await response.text()
+            msg = "Unexpected content type response from the Open Data Platform API."
             raise ODPEindhovenError(
-                "Unexpected content type response from the Open Data Platform API",
+                msg,
                 {"Content-Type": content_type, "response": text},
             )
 
         return await response.json()
 
     async def locations(
-        self, limit: int = 10, parking_type: int = 1
+        self,
+        limit: int = 10,
+        parking_type: int = 1,
     ) -> list[ParkingSpot]:
         """Get all the parking locations.
 
@@ -135,10 +147,12 @@ class ODPEindhoven:
             limit: Number of rows to return.
             parking_type: The selected parking type number.
 
-        Returns:
+        Returns
+        -------
             A list of ParkingSpot objects.
 
-        Raises:
+        Raises
+        ------
             ODPEindhovenResultsError: When no results are found.
         """
         results: list[ParkingSpot] = []
@@ -154,7 +168,8 @@ class ODPEindhoven:
         for item in locations["records"]:
             results.append(ParkingSpot.from_json(item))
         if not results:
-            raise ODPEindhovenResultsError("No parking locations were found")
+            msg = "No parking locations were found"
+            raise ODPEindhovenResultsError(msg)
         return results
 
     async def close(self) -> None:
@@ -165,7 +180,8 @@ class ODPEindhoven:
     async def __aenter__(self) -> ODPEindhoven:
         """Async enter.
 
-        Returns:
+        Returns
+        -------
             The Open Data Platform Eindhoven object.
         """
         return self
@@ -174,6 +190,7 @@ class ODPEindhoven:
         """Async exit.
 
         Args:
+        ----
             _exc_info: Exec type.
         """
         await self.close()

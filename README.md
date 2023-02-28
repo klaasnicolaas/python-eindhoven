@@ -15,11 +15,12 @@
 [![Issues][issues-shield]][issues-url]
 
 [![Code Quality][code-quality-shield]][code-quality]
+[![Build Status][build-shield]][build-url]
+[![Typing Status][typing-shield]][typing-url]
+
 [![Maintainability][maintainability-shield]][maintainability-url]
 [![Code Coverage][codecov-shield]][codecov-url]
 
-[![Build Status][build-shield]][build-url]
-[![Typing Status][typing-shield]][typing-url]
 
 Asynchronous Python client for the open datasets of Eindhoven (The Netherlands).
 
@@ -183,8 +184,8 @@ SOFTWARE.
 <!-- MARKDOWN LINKS & IMAGES -->
 [build-shield]: https://github.com/klaasnicolaas/python-eindhoven/actions/workflows/tests.yaml/badge.svg
 [build-url]: https://github.com/klaasnicolaas/python-eindhoven/actions/workflows/tests.yaml
-[code-quality-shield]: https://img.shields.io/lgtm/grade/python/g/klaasnicolaas/python-eindhoven.svg?logo=lgtm&logoWidth=18
-[code-quality]: https://lgtm.com/projects/g/klaasnicolaas/python-eindhoven/context:python
+[code-quality-shield]: https://github.com/klaasnicolaas/python-eindhoven/actions/workflows/codeql.yaml/badge.svg
+[code-quality]: https://github.com/klaasnicolaas/python-eindhoven/actions/workflows/codeql.yaml
 [commits-shield]: https://img.shields.io/github/commit-activity/y/klaasnicolaas/python-eindhoven.svg
 [commits-url]: https://github.com/klaasnicolaas/python-eindhoven/commits/main
 [codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-eindhoven/branch/main/graph/badge.svg?token=4AMI23ZT7C
