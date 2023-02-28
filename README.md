@@ -15,11 +15,12 @@
 [![Issues][issues-shield]][issues-url]
 
 [![Code Quality][code-quality-shield]][code-quality]
+[![Build Status][build-shield]][build-url]
+[![Typing Status][typing-shield]][typing-url]
+
 [![Maintainability][maintainability-shield]][maintainability-url]
 [![Code Coverage][codecov-shield]][codecov-url]
 
-[![Build Status][build-shield]][build-url]
-[![Typing Status][typing-shield]][typing-url]
 
 Asynchronous Python client for the open datasets of Eindhoven (The Netherlands).
 
