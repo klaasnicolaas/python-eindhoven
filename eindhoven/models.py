@@ -25,9 +25,10 @@ class ParkingSpot:
         """Return a ParkingSpot object from a JSON dictionary.
 
         Args:
+        ----
             data: The JSON data from the API.
 
-        Returns
+        Returns:
         -------
             A ParkingSpot object.
         """

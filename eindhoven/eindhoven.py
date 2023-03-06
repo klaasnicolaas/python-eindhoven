@@ -35,13 +35,14 @@ class ODPEindhoven:
         """Define the parking type.
 
         Args:
+        ----
             parking_type: The selected parking type number.
 
-        Returns
+        Returns:
         -------
             The parking type as string.
 
-        Raises
+        Raises:
         ------
             ODPEindhovenTypeError: If the parking type is not listed.
         """
@@ -72,16 +73,17 @@ class ODPEindhoven:
         """Handle a request to the Open Data Platform API of Eindhoven.
 
         Args:
+        ----
             uri: Request URI, without '/', for example, 'status'
             method: HTTP method to use, for example, 'GET'
             params: Extra options to improve or limit the response.
 
-        Returns
+        Returns:
         -------
             A Python dictionary (json) with the response from
             the Open Data Platform API of Eindhoven.
 
-        Raises
+        Raises:
         ------
             ODPEindhovenConnectionError: An error occurred while
                 communicating with the Open Data Platform API
@@ -144,14 +146,15 @@ class ODPEindhoven:
         """Get all the parking locations.
 
         Args:
+        ----
             limit: Number of rows to return.
             parking_type: The selected parking type number.
 
-        Returns
+        Returns:
         -------
             A list of ParkingSpot objects.
 
-        Raises
+        Raises:
         ------
             ODPEindhovenResultsError: When no results are found.
         """
