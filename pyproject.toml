@@ -153,7 +153,7 @@ mark-parentheses = false
 fixture-parentheses = false
 
 [tool.ruff.isort]
-known-first-party = ["gridnet"]
+known-first-party = ["eindhoven"]
 
 [tool.ruff.mccabe]
 max-complexity = 25

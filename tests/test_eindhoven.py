@@ -6,6 +6,7 @@ from unittest.mock import patch
 import pytest
 from aiohttp import ClientError, ClientResponse, ClientSession
 from aresponses import Response, ResponsesMockServer
+
 from eindhoven import ODPEindhoven
 from eindhoven.exceptions import ODPEindhovenConnectionError, ODPEindhovenError
 

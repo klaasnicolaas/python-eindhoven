@@ -5,6 +5,7 @@ import pytest
 import pytz
 from aiohttp import ClientSession
 from aresponses import ResponsesMockServer
+
 from eindhoven import (
     ODPEindhoven,
     ODPEindhovenResultsError,
