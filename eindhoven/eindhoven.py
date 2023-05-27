@@ -118,14 +118,10 @@ class ODPEindhoven:
                 response.raise_for_status()
         except asyncio.TimeoutError as exception:
             msg = "Timeout occurred while connecting to the Open Data Platform API."
-            raise ODPEindhovenConnectionError(
-                msg,
-            ) from exception
+            raise ODPEindhovenConnectionError(msg) from exception
         except (ClientError, socket.gaierror) as exception:
             msg = "Error occurred while communicating with the Open Data Platform API."
-            raise ODPEindhovenConnectionError(
-                msg,
-            ) from exception
+            raise ODPEindhovenConnectionError(msg) from exception
 
         content_type = response.headers.get("Content-Type", "")
         if "application/json" not in content_type:
