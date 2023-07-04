@@ -154,7 +154,6 @@ class ODPEindhoven:
         ------
             ODPEindhovenResultsError: When no results are found.
         """
-        results: list[ParkingSpot] = []
         locations = await self._request(
             "search/",
             params={
@@ -163,9 +162,9 @@ class ODPEindhoven:
                 "refine.type_en_merk": await self.define_type(parking_type),
             },
         )
-
-        for item in locations["records"]:
-            results.append(ParkingSpot.from_json(item))
+        results: list[ParkingSpot] = [
+            ParkingSpot.from_json(item) for item in locations["records"]
+        ]
         if not results:
             msg = "No parking locations were found"
             raise ODPEindhovenResultsError(msg)
