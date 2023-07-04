@@ -10,10 +10,9 @@ async def main() -> None:
     """Show example on using the Open Data Platform API of Eindhoven."""
     async with ODPEindhoven() as client:
         locations = await client.locations(limit=200, parking_type=3)
-        count: int
 
-        for index, item in enumerate(locations, 1):
-            count = index
+        count: int = len(locations)
+        for item in locations:
             print(item)
 
         print("__________________________")
