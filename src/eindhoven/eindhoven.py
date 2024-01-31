@@ -44,6 +44,7 @@ class ODPEindhoven:
         Raises:
         ------
             ODPEindhovenTypeError: If the parking type is not listed.
+
         """
         options = {
             1: "Parkeerplaats",
@@ -88,6 +89,7 @@ class ODPEindhoven:
                 communicating with the Open Data Platform API
             ODPEindhovenError: Received an unexpected response from
                 the Open Data Platform API.
+
         """
         version = metadata.version(__package__)
         url = URL.build(
@@ -152,6 +154,7 @@ class ODPEindhoven:
         Raises:
         ------
             ODPEindhovenResultsError: When no results are found.
+
         """
         locations = await self._request(
             "search/",
@@ -180,6 +183,7 @@ class ODPEindhoven:
         Returns
         -------
             The Open Data Platform Eindhoven object.
+
         """
         return self
 
@@ -189,5 +193,6 @@ class ODPEindhoven:
         Args:
         ----
             _exc_info: Exec type.
+
         """
         await self.close()
