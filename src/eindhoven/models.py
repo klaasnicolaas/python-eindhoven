@@ -31,6 +31,7 @@ class ParkingSpot:
         Returns:
         -------
             A ParkingSpot object.
+
         """
         attr = data["fields"]
         geo = data["geometry"]["coordinates"]
