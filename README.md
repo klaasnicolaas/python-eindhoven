@@ -162,7 +162,7 @@ poetry run pytest
 
 MIT License
 
-Copyright (c) 2020-2023 Klaas Schoute
+Copyright (c) 2021-2024 Klaas Schoute
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -201,7 +201,7 @@ SOFTWARE.
 [downloads-url]: https://pypistats.org/packages/eindhoven
 [license-shield]: https://img.shields.io/github/license/klaasnicolaas/python-eindhoven.svg
 [last-commit-shield]: https://img.shields.io/github/last-commit/klaasnicolaas/python-eindhoven.svg
-[maintenance-shield]: https://img.shields.io/maintenance/yes/2023.svg
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2024.svg
 [maintainability-shield]: https://api.codeclimate.com/v1/badges/c577da6bb1b3bb6553bd/maintainability
 [maintainability-url]: https://codeclimate.com/github/klaasnicolaas/python-eindhoven/maintainability
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
