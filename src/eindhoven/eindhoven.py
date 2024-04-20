@@ -20,6 +20,8 @@ from .exceptions import (
 )
 from .models import ParkingSpot
 
+VERSION = metadata.version(__package__)
+
 
 @dataclass
 class ODPEindhoven:
@@ -59,9 +61,7 @@ class ODPEindhoven:
         # Check if the parking type is listed
         if options is None:
             msg = "The selected number does not match the list of parking types"
-            raise ODPEindhovenTypeError(
-                msg,
-            )
+            raise ODPEindhovenTypeError(msg)
         return options
 
     async def _request(
@@ -92,7 +92,6 @@ class ODPEindhoven:
                 the Open Data Platform API.
 
         """
-        version = metadata.version(__package__)
         url = URL.build(
             scheme="https",
             host="data.eindhoven.nl",
@@ -101,7 +100,7 @@ class ODPEindhoven:
 
         headers = {
             "Accept": "application/json, text/plain",
-            "User-Agent": f"PythonEindhoven/{version}",
+            "User-Agent": f"PythonEindhoven/{VERSION}",
         }
 
         if self.session is None:

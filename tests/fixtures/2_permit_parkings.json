@@ -1,0 +1,228 @@
+{
+  "nhits": 726,
+  "parameters": {
+    "dataset": "parkeerplaatsen",
+    "rows": 10,
+    "start": 0,
+    "refine": {
+      "type_en_merk": "Parkeerplaats Vergunning"
+    },
+    "format": "json",
+    "timezone": "UTC"
+  },
+  "records": [
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "9aff83e308d62b428c81780c99cdafa5085934bd",
+      "fields": {
+        "straat": "Michelangelolaan",
+        "type_en_merk": "Parkeerplaats Vergunning",
+        "geo_point_2d": [51.464370174138594, 5.471875282928675],
+        "geo_shape": {
+          "coordinates": [5.471875282928675, 51.464370174138594],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 11952
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.471875282928675, 51.464370174138594]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "22dd06a4fc720e412e7899fd99dbd678b09d5247",
+      "fields": {
+        "straat": "Michelangelolaan",
+        "type_en_merk": "Parkeerplaats Vergunning",
+        "geo_point_2d": [51.464413442384526, 5.473749976284599],
+        "geo_shape": {
+          "coordinates": [5.473749976284599, 51.464413442384526],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 11931
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.473749976284599, 51.464413442384526]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "351f94e6527c748402fa6d2203dbf6cb409c0a37",
+      "fields": {
+        "straat": "Michelangelolaan",
+        "type_en_merk": "Parkeerplaats Vergunning",
+        "geo_point_2d": [51.464393692077614, 5.47285347272649],
+        "geo_shape": {
+          "coordinates": [5.47285347272649, 51.464393692077614],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 11937
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.47285347272649, 51.464393692077614]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "ac3a3302999f8d0b271a3dd9b48bfaae449814f7",
+      "fields": {
+        "straat": "Michelangelolaan",
+        "type_en_merk": "Parkeerplaats Vergunning",
+        "geo_point_2d": [51.46440602495267, 5.473425270901313],
+        "geo_shape": {
+          "coordinates": [5.473425270901313, 51.46440602495267],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 11943
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.473425270901313, 51.46440602495267]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "a4064e49ae8a1c4b714b2a2df7250429adbdb6b4",
+      "fields": {
+        "straat": "Smitsstraat",
+        "type_en_merk": "Parkeerplaats Vergunning",
+        "geo_point_2d": [51.437230597768846, 5.472373282328308],
+        "geo_shape": {
+          "coordinates": [5.472373282328308, 51.437230597768846],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 17991
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.472373282328308, 51.437230597768846]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "f53f1afff40485028639589185d204c253ed025a",
+      "fields": {
+        "straat": "Smitsstraat",
+        "type_en_merk": "Parkeerplaats Vergunning",
+        "geo_point_2d": [51.43736962937751, 5.472178714735089],
+        "geo_shape": {
+          "coordinates": [5.472178714735089, 51.43736962937751],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 17992
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.472178714735089, 51.43736962937751]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "3f272487df06c055de2c55d27782407a521d796a",
+      "fields": {
+        "straat": "Smitsstraat",
+        "type_en_merk": "Parkeerplaats Vergunning",
+        "geo_point_2d": [51.43740963285452, 5.472111818477869],
+        "geo_shape": {
+          "coordinates": [5.472111818477869, 51.43740963285452],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 17993
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.472111818477869, 51.43740963285452]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "0ceb8a0083afa92a7d5771c97d1331765e115309",
+      "fields": {
+        "straat": "Smitsstraat",
+        "type_en_merk": "Parkeerplaats Vergunning",
+        "geo_point_2d": [51.437531514929795, 5.471953747608381],
+        "geo_shape": {
+          "coordinates": [5.471953747608381, 51.437531514929795],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 17996
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.471953747608381, 51.437531514929795]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "05dd0fa03d0e9e3036cb47729c1a478adaa3eeac",
+      "fields": {
+        "straat": "Smitsstraat",
+        "type_en_merk": "Parkeerplaats Vergunning",
+        "geo_point_2d": [51.43751446685524, 5.471850213455201],
+        "geo_shape": {
+          "coordinates": [5.471850213455201, 51.43751446685524],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 17997
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.471850213455201, 51.43751446685524]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "43522f8af90388b303b52f00c4015d5ee5e3b0ec",
+      "fields": {
+        "straat": "Smitsstraat",
+        "type_en_merk": "Parkeerplaats Vergunning",
+        "geo_point_2d": [51.437613415634196, 5.471832131954089],
+        "geo_shape": {
+          "coordinates": [5.471832131954089, 51.437613415634196],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 17999
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.471832131954089, 51.437613415634196]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    }
+  ],
+  "facet_groups": [
+    {
+      "name": "type_en_merk",
+      "facets": [
+        {
+          "name": "Parkeerplaats Vergunning",
+          "count": 726,
+          "state": "refined",
+          "path": "Parkeerplaats Vergunning"
+        }
+      ]
+    }
+  ]
+}
