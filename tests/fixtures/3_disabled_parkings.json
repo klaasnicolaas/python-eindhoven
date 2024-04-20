@@ -1,0 +1,228 @@
+{
+  "nhits": 180,
+  "parameters": {
+    "dataset": "parkeerplaatsen",
+    "rows": 10,
+    "start": 0,
+    "refine": {
+      "type_en_merk": "Parkeerplaats Gehandicapten"
+    },
+    "format": "json",
+    "timezone": "UTC"
+  },
+  "records": [
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "24482c2bc9a90ad0608a7289758cccd55bf8f5db",
+      "fields": {
+        "straat": "Benedictusstraat",
+        "type_en_merk": "Parkeerplaats Gehandicapten",
+        "geo_point_2d": [51.45196590072531, 5.468028294136795],
+        "geo_shape": {
+          "coordinates": [5.468028294136795, 51.45196590072531],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 23428
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.468028294136795, 51.45196590072531]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "084b007fd5476cb134d8900110ee12e7be8e6b24",
+      "fields": {
+        "straat": "Hertog Hendrik van Brabantplein",
+        "type_en_merk": "Parkeerplaats Gehandicapten",
+        "geo_point_2d": [51.43258489086503, 5.48576495981318],
+        "geo_shape": {
+          "coordinates": [5.48576495981318, 51.43258489086503],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 23188
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.48576495981318, 51.43258489086503]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "ef77ca1425ceca01f2adf6a99ca2ad1fe5b470a7",
+      "fields": {
+        "straat": "Willem van Hornestraat",
+        "type_en_merk": "Parkeerplaats Gehandicapten",
+        "geo_point_2d": [51.43359907711495, 5.487336523369197],
+        "geo_shape": {
+          "coordinates": [5.487336523369197, 51.43359907711495],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 23049
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.487336523369197, 51.43359907711495]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "1c2a3c1d164dd4e6a0ab04221ddc6df5328c4383",
+      "fields": {
+        "straat": "Niet ingevuld",
+        "type_en_merk": "Parkeerplaats Gehandicapten",
+        "geo_point_2d": [51.43588190541636, 5.462657655831373],
+        "geo_shape": {
+          "coordinates": [5.462657655831373, 51.43588190541636],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 22868
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.462657655831373, 51.43588190541636]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "16db25a0a1d89b749edd1dfcb30ee64624ab0a16",
+      "fields": {
+        "straat": "Schellingstraat",
+        "type_en_merk": "Parkeerplaats Gehandicapten",
+        "geo_point_2d": [51.435898978883735, 5.490066186569297],
+        "geo_shape": {
+          "coordinates": [5.490066186569297, 51.435898978883735],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 22772
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.490066186569297, 51.435898978883735]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "164d1509d6a619595015573ea6ab1b4e96551112",
+      "fields": {
+        "straat": "Winkelcentrum Woensel",
+        "type_en_merk": "Parkeerplaats Gehandicapten",
+        "geo_point_2d": [51.4702825688508, 5.477325002022769],
+        "geo_shape": {
+          "coordinates": [5.477325002022769, 51.4702825688508],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 12244
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.477325002022769, 51.4702825688508]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "49bfe27b7e0e4e45e762cebf6781877909182bfc",
+      "fields": {
+        "straat": "Frederiklaan",
+        "type_en_merk": "Parkeerplaats Gehandicapten",
+        "geo_point_2d": [51.441731672624805, 5.455993108656147],
+        "geo_shape": {
+          "coordinates": [5.455993108656147, 51.441731672624805],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 12495
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.455993108656147, 51.441731672624805]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "d9c435da2d7ee25526bd69159e972d70c128fed0",
+      "fields": {
+        "straat": "Marconilaan",
+        "type_en_merk": "Parkeerplaats Gehandicapten",
+        "geo_point_2d": [51.449891599152984, 5.458827795256831],
+        "geo_shape": {
+          "coordinates": [5.458827795256831, 51.449891599152984],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 12891
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.458827795256831, 51.449891599152984]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "2b9d6e19cee2af5f2ddb03c352d92f8e645a7479",
+      "fields": {
+        "straat": "Winkelcentrum Woensel",
+        "type_en_merk": "Parkeerplaats Gehandicapten",
+        "geo_point_2d": [51.469735439493796, 5.478167744280201],
+        "geo_shape": {
+          "coordinates": [5.478167744280201, 51.469735439493796],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 12338
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.478167744280201, 51.469735439493796]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "3052106064129c94c02e620425f7225f66f634b6",
+      "fields": {
+        "straat": "Winkelcentrum Woensel",
+        "type_en_merk": "Parkeerplaats Gehandicapten",
+        "geo_point_2d": [51.46969216987122, 5.478165499071164],
+        "geo_shape": {
+          "coordinates": [5.478165499071164, 51.46969216987122],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 12339
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.478165499071164, 51.46969216987122]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    }
+  ],
+  "facet_groups": [
+    {
+      "name": "type_en_merk",
+      "facets": [
+        {
+          "name": "Parkeerplaats Gehandicapten",
+          "count": 180,
+          "state": "refined",
+          "path": "Parkeerplaats Gehandicapten"
+        }
+      ]
+    }
+  ]
+}

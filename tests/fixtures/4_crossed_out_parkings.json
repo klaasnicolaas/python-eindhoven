@@ -1,0 +1,228 @@
+{
+  "nhits": 130,
+  "parameters": {
+    "dataset": "parkeerplaatsen",
+    "rows": 10,
+    "start": 0,
+    "refine": {
+      "type_en_merk": "Parkeerplaats Afgekruist"
+    },
+    "format": "json",
+    "timezone": "UTC"
+  },
+  "records": [
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "d3e6805372ac8e4a1b0f481ea545a04fdf7e2384",
+      "fields": {
+        "straat": "Michelangelolaan",
+        "type_en_merk": "Parkeerplaats Afgekruist",
+        "geo_point_2d": [51.464376413342755, 5.4720713352312655],
+        "geo_shape": {
+          "coordinates": [5.4720713352312655, 51.464376413342755],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 11946
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.4720713352312655, 51.464376413342755]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "8f67420d70756a916cac9e0919a5e7734c7f0453",
+      "fields": {
+        "straat": "Michelangelolaan",
+        "type_en_merk": "Parkeerplaats Afgekruist",
+        "geo_point_2d": [51.464411039709105, 5.473547800531344],
+        "geo_shape": {
+          "coordinates": [5.473547800531344, 51.464411039709105],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 11933
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.473547800531344, 51.464411039709105]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "5ec8348e0686ac6e2d8d141aaec9a662515ef914",
+      "fields": {
+        "straat": "Bomanshof",
+        "type_en_merk": "Parkeerplaats Afgekruist",
+        "geo_point_2d": [51.430399977668955, 5.485006013818546],
+        "geo_shape": {
+          "coordinates": [5.485006013818546, 51.430399977668955],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 13665
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.485006013818546, 51.430399977668955]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "c3e7439e75e49fc5ee1f0a81cd941b6e6d1922de",
+      "fields": {
+        "straat": "Wilhelminaplein",
+        "type_en_merk": "Parkeerplaats Afgekruist",
+        "geo_point_2d": [51.43781205618678, 5.4713438738447415],
+        "geo_shape": {
+          "coordinates": [5.4713438738447415, 51.43781205618678],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 18512
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.4713438738447415, 51.43781205618678]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "829bec125aa10e3b5cd19d0f037bc826859da713",
+      "fields": {
+        "straat": "Hof van Eden",
+        "type_en_merk": "Parkeerplaats Afgekruist",
+        "geo_point_2d": [51.43348816472158, 5.4737975043994105],
+        "geo_shape": {
+          "coordinates": [5.4737975043994105, 51.43348816472158],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 18820
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.4737975043994105, 51.43348816472158]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "e60a33551053bf90eaaccb61f5bef1195afe3438",
+      "fields": {
+        "straat": "Hof van Eden",
+        "type_en_merk": "Parkeerplaats Afgekruist",
+        "geo_point_2d": [51.43337044799295, 5.473617494361154],
+        "geo_shape": {
+          "coordinates": [5.473617494361154, 51.43337044799295],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 18821
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.473617494361154, 51.43337044799295]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "380ffc9c60d5497da0e5b987d3798900a54bf7ae",
+      "fields": {
+        "straat": "Gestelsestraat",
+        "type_en_merk": "Parkeerplaats Afgekruist",
+        "geo_point_2d": [51.43301043342078, 5.472066348597859],
+        "geo_shape": {
+          "coordinates": [5.472066348597859, 51.43301043342078],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 18682
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.472066348597859, 51.43301043342078]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "ae57dfa7636a5cb69b165de4bb881e4a762c9af3",
+      "fields": {
+        "straat": "Raiffeisenstraat",
+        "type_en_merk": "Parkeerplaats Afgekruist",
+        "geo_point_2d": [51.44011918148758, 5.482429392773308],
+        "geo_shape": {
+          "coordinates": [5.482429392773308, 51.44011918148758],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 16580
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.482429392773308, 51.44011918148758]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "d69b299264e5506677a800a7f10b244f52b5c137",
+      "fields": {
+        "straat": "Keizersgracht",
+        "type_en_merk": "Parkeerplaats Afgekruist",
+        "geo_point_2d": [51.4375550012714, 5.475708617669073],
+        "geo_shape": {
+          "coordinates": [5.475708617669073, 51.4375550012714],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 16841
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.475708617669073, 51.4375550012714]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "ec49c1ebb45f11d581508e40afab563e25aa01bc",
+      "fields": {
+        "straat": "Professor Dr Dorgelolaan",
+        "type_en_merk": "Parkeerplaats Afgekruist",
+        "geo_point_2d": [51.44435112864605, 5.484752269463942],
+        "geo_shape": {
+          "coordinates": [5.484752269463942, 51.44435112864605],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 15115
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.484752269463942, 51.44435112864605]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    }
+  ],
+  "facet_groups": [
+    {
+      "name": "type_en_merk",
+      "facets": [
+        {
+          "name": "Parkeerplaats Afgekruist",
+          "count": 130,
+          "state": "refined",
+          "path": "Parkeerplaats Afgekruist"
+        }
+      ]
+    }
+  ]
+}

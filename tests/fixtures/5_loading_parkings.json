@@ -1,0 +1,228 @@
+{
+  "nhits": 23,
+  "parameters": {
+    "dataset": "parkeerplaatsen",
+    "rows": 10,
+    "start": 0,
+    "refine": {
+      "type_en_merk": "Parkeerplaats laden/lossen"
+    },
+    "format": "json",
+    "timezone": "UTC"
+  },
+  "records": [
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "8e9f11a9773f8e7cb7d3cbdd830793e7eee99a77",
+      "fields": {
+        "straat": "Kronehoefstraat",
+        "type_en_merk": "Parkeerplaats laden/lossen",
+        "geo_point_2d": [51.45214043811088, 5.467566134606305],
+        "geo_shape": {
+          "coordinates": [5.467566134606305, 51.45214043811088],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 23420
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.467566134606305, 51.45214043811088]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "6293fb10ddde1ff8e5e0d8a3f1fc92c3628faae5",
+      "fields": {
+        "straat": "Gestelsestraat",
+        "type_en_merk": "Parkeerplaats laden/lossen",
+        "geo_point_2d": [51.433285852317034, 5.4719225803080604],
+        "geo_shape": {
+          "coordinates": [5.4719225803080604, 51.433285852317034],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 18681
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.4719225803080604, 51.433285852317034]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "aa81a0a51f65e55a0b86f14825d6c5f9574f27a8",
+      "fields": {
+        "straat": "Torenallee",
+        "type_en_merk": "Parkeerplaats laden/lossen",
+        "geo_point_2d": [51.44565424830635, 5.460093640557604],
+        "geo_shape": {
+          "coordinates": [5.460093640557604, 51.44565424830635],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 20914
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.460093640557604, 51.44565424830635]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "9594a960f0e8b660c5fd9facb7bdb67889c91a50",
+      "fields": {
+        "straat": "Grote Berg",
+        "type_en_merk": "Parkeerplaats laden/lossen",
+        "geo_point_2d": [51.43551302160987, 5.4744767226620015],
+        "geo_shape": {
+          "coordinates": [5.4744767226620015, 51.43551302160987],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 20646
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.4744767226620015, 51.43551302160987]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "8e8aa9d79213f6086792faddd707dbb6ada8a72c",
+      "fields": {
+        "straat": "Philitestraat",
+        "type_en_merk": "Parkeerplaats laden/lossen",
+        "geo_point_2d": [51.448258391184254, 5.457403444276032],
+        "geo_shape": {
+          "coordinates": [5.457403444276032, 51.448258391184254],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 20706
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.457403444276032, 51.448258391184254]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "c767cb8b4ffa660f50d578314106958576c297df",
+      "fields": {
+        "straat": "Hoogstraat",
+        "type_en_merk": "Parkeerplaats laden/lossen",
+        "geo_point_2d": [51.43084001137937, 5.468641608217367],
+        "geo_shape": {
+          "coordinates": [5.468641608217367, 51.43084001137937],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 14937
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.468641608217367, 51.43084001137937]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "e2ff43e1d5b9deb150ce5b581b4919ed06bfb944",
+      "fields": {
+        "straat": "Hoogstraat",
+        "type_en_merk": "Parkeerplaats laden/lossen",
+        "geo_point_2d": [51.43089252074345, 5.46870937352264],
+        "geo_shape": {
+          "coordinates": [5.46870937352264, 51.43089252074345],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 14938
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.46870937352264, 51.43089252074345]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "ae33ef0d248496ee0219c2abc7bc077df05b43f3",
+      "fields": {
+        "straat": "Philitestraat",
+        "type_en_merk": "Parkeerplaats laden/lossen",
+        "geo_point_2d": [51.44901986427776, 5.45682286377073],
+        "geo_shape": {
+          "coordinates": [5.45682286377073, 51.44901986427776],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 23356
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.45682286377073, 51.44901986427776]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "9bf1866eb39da182e04a83c42ce242b94453bc40",
+      "fields": {
+        "straat": "Kronehoefstraat",
+        "type_en_merk": "Parkeerplaats laden/lossen",
+        "geo_point_2d": [51.45213619642506, 5.4674800825964756],
+        "geo_shape": {
+          "coordinates": [5.4674800825964756, 51.45213619642506],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 23419
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.4674800825964756, 51.45213619642506]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    },
+    {
+      "datasetid": "parkeerplaatsen",
+      "recordid": "ac057a4954f9d0e78d708588f1e2b9dda7297f96",
+      "fields": {
+        "straat": "Frederiklaan",
+        "type_en_merk": "Parkeerplaats laden/lossen",
+        "geo_point_2d": [51.44165827018127, 5.4560555363217205],
+        "geo_shape": {
+          "coordinates": [5.4560555363217205, 51.44165827018127],
+          "type": "Point"
+        },
+        "aantal": 1.0,
+        "objectid": 12496
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.4560555363217205, 51.44165827018127]
+      },
+      "record_timestamp": "2024-04-01T21:45:05.786Z"
+    }
+  ],
+  "facet_groups": [
+    {
+      "name": "type_en_merk",
+      "facets": [
+        {
+          "name": "Parkeerplaats laden/lossen",
+          "count": 23,
+          "state": "refined",
+          "path": "Parkeerplaats laden/lossen"
+        }
+      ]
+    }
+  ]
+}

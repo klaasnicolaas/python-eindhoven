@@ -1,0 +1,318 @@
+{
+    "nhits": 10260,
+    "parameters": {
+        "dataset": "parkeerplaatsen",
+        "rows": 10,
+        "start": 0,
+        "refine": {
+            "type_en_merk": "Parkeerplaats"
+        },
+        "format": "json",
+        "timezone": "UTC"
+    },
+    "records": [
+        {
+            "datasetid": "parkeerplaatsen",
+            "recordid": "5943cb52f635a7cb4047bd28415ff3de878ff424",
+            "fields": {
+                "straat": "van Meursstraat",
+                "type_en_merk": "Parkeerplaats",
+                "geo_point_2d": [
+                    51.42929171364541,
+                    5.474774482175889
+                ],
+                "geo_shape": {
+                    "coordinates": [
+                        5.474774482175889,
+                        51.42929171364541
+                    ],
+                    "type": "Point"
+                },
+                "aantal": 1.0,
+                "objectid": 23269
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.474774482175889,
+                    51.42929171364541
+                ]
+            },
+            "record_timestamp": "2024-04-01T21:45:05.786Z"
+        },
+        {
+            "datasetid": "parkeerplaatsen",
+            "recordid": "0f0f4c50bbe1ff96408cdd5d1f6e83531bfe0a5c",
+            "fields": {
+                "straat": "van Meursstraat",
+                "type_en_merk": "Parkeerplaats",
+                "geo_point_2d": [
+                    51.429371401892176,
+                    5.474524450039031
+                ],
+                "geo_shape": {
+                    "coordinates": [
+                        5.474524450039031,
+                        51.429371401892176
+                    ],
+                    "type": "Point"
+                },
+                "aantal": 1.0,
+                "objectid": 23270
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.474524450039031,
+                    51.429371401892176
+                ]
+            },
+            "record_timestamp": "2024-04-01T21:45:05.786Z"
+        },
+        {
+            "datasetid": "parkeerplaatsen",
+            "recordid": "efca03a63e0ecf9def22b843af01f483ace78393",
+            "fields": {
+                "straat": "van Meursstraat",
+                "type_en_merk": "Parkeerplaats",
+                "geo_point_2d": [
+                    51.42939752664452,
+                    5.474445274023191
+                ],
+                "geo_shape": {
+                    "coordinates": [
+                        5.474445274023191,
+                        51.42939752664452
+                    ],
+                    "type": "Point"
+                },
+                "aantal": 1.0,
+                "objectid": 23271
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.474445274023191,
+                    51.42939752664452
+                ]
+            },
+            "record_timestamp": "2024-04-01T21:45:05.786Z"
+        },
+        {
+            "datasetid": "parkeerplaatsen",
+            "recordid": "19e70b93586f1356298a411a2a9acb6ff72fa57e",
+            "fields": {
+                "straat": "van Meursstraat",
+                "type_en_merk": "Parkeerplaats",
+                "geo_point_2d": [
+                    51.429421031474355,
+                    5.474384856563808
+                ],
+                "geo_shape": {
+                    "coordinates": [
+                        5.474384856563808,
+                        51.429421031474355
+                    ],
+                    "type": "Point"
+                },
+                "aantal": 1.0,
+                "objectid": 23272
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.474384856563808,
+                    51.429421031474355
+                ]
+            },
+            "record_timestamp": "2024-04-01T21:45:05.786Z"
+        },
+        {
+            "datasetid": "parkeerplaatsen",
+            "recordid": "e087a727da274abd99dde4d7af07c66001993a6e",
+            "fields": {
+                "straat": "van Meursstraat",
+                "type_en_merk": "Parkeerplaats",
+                "geo_point_2d": [
+                    51.42947335084988,
+                    5.474132684425932
+                ],
+                "geo_shape": {
+                    "coordinates": [
+                        5.474132684425932,
+                        51.42947335084988
+                    ],
+                    "type": "Point"
+                },
+                "aantal": 1.0,
+                "objectid": 23273
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.474132684425932,
+                    51.42947335084988
+                ]
+            },
+            "record_timestamp": "2024-04-01T21:45:05.786Z"
+        },
+        {
+            "datasetid": "parkeerplaatsen",
+            "recordid": "b5812201444522d26adc9697af5791623ed7a63e",
+            "fields": {
+                "straat": "van Meursstraat",
+                "type_en_merk": "Parkeerplaats",
+                "geo_point_2d": [
+                    51.42956612005954,
+                    5.473815957374367
+                ],
+                "geo_shape": {
+                    "coordinates": [
+                        5.473815957374367,
+                        51.42956612005954
+                    ],
+                    "type": "Point"
+                },
+                "aantal": 1.0,
+                "objectid": 23277
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.473815957374367,
+                    51.42956612005954
+                ]
+            },
+            "record_timestamp": "2024-04-01T21:45:05.786Z"
+        },
+        {
+            "datasetid": "parkeerplaatsen",
+            "recordid": "4b601f2fae198a7e090bfe74ae6eb249366b8d71",
+            "fields": {
+                "straat": "van Meursstraat",
+                "type_en_merk": "Parkeerplaats",
+                "geo_point_2d": [
+                    51.42945262650903,
+                    5.473961684033574
+                ],
+                "geo_shape": {
+                    "coordinates": [
+                        5.473961684033574,
+                        51.42945262650903
+                    ],
+                    "type": "Point"
+                },
+                "aantal": 1.0,
+                "objectid": 23279
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.473961684033574,
+                    51.42945262650903
+                ]
+            },
+            "record_timestamp": "2024-04-01T21:45:05.786Z"
+        },
+        {
+            "datasetid": "parkeerplaatsen",
+            "recordid": "5516712e1aa3233e8efd167b54e11674b91fc83b",
+            "fields": {
+                "straat": "Potgieterstraat",
+                "type_en_merk": "Parkeerplaats",
+                "geo_point_2d": [
+                    51.43162431647239,
+                    5.476749582530006
+                ],
+                "geo_shape": {
+                    "coordinates": [
+                        5.476749582530006,
+                        51.43162431647239
+                    ],
+                    "type": "Point"
+                },
+                "aantal": 1.0,
+                "objectid": 23351
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.476749582530006,
+                    51.43162431647239
+                ]
+            },
+            "record_timestamp": "2024-04-01T21:45:05.786Z"
+        },
+        {
+            "datasetid": "parkeerplaatsen",
+            "recordid": "cbbb5bdfcefb0139cdf6a0c7fd9ca2d3616dbd48",
+            "fields": {
+                "straat": "Edenstraat",
+                "type_en_merk": "Parkeerplaats",
+                "geo_point_2d": [
+                    51.43161227016372,
+                    5.477159477246228
+                ],
+                "geo_shape": {
+                    "coordinates": [
+                        5.477159477246228,
+                        51.43161227016372
+                    ],
+                    "type": "Point"
+                },
+                "aantal": 1.0,
+                "objectid": 23353
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.477159477246228,
+                    51.43161227016372
+                ]
+            },
+            "record_timestamp": "2024-04-01T21:45:05.786Z"
+        },
+        {
+            "datasetid": "parkeerplaatsen",
+            "recordid": "32eb8972d9a1c945512c3ab7d41e291ce300aca6",
+            "fields": {
+                "straat": "Kronehoefstraat",
+                "type_en_merk": "Parkeerplaats",
+                "geo_point_2d": [
+                    51.4521057145467,
+                    5.4665329757278425
+                ],
+                "geo_shape": {
+                    "coordinates": [
+                        5.4665329757278425,
+                        51.4521057145467
+                    ],
+                    "type": "Point"
+                },
+                "aantal": 1.0,
+                "objectid": 23360
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.4665329757278425,
+                    51.4521057145467
+                ]
+            },
+            "record_timestamp": "2024-04-01T21:45:05.786Z"
+        }
+    ],
+    "facet_groups": [
+        {
+            "name": "type_en_merk",
+            "facets": [
+                {
+                    "name": "Parkeerplaats",
+                    "count": 10260,
+                    "state": "refined",
+                    "path": "Parkeerplaats"
+                }
+            ]
+        }
+    ]
+}

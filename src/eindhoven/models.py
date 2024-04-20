@@ -3,10 +3,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any
-
-import pytz
 
 
 @dataclass
@@ -40,11 +38,11 @@ class ParkingSpot:
             spot_id=data["recordid"],
             parking_type=attr.get("type_en_merk"),
             street=attr.get("straat"),
-            number=attr.get("aantal"),
+            number=int(attr.get("aantal")),
             longitude=geo[0],
             latitude=geo[1],
             updated_at=datetime.strptime(
                 data["record_timestamp"],
                 "%Y-%m-%dT%H:%M:%S.%fZ",
-            ).replace(tzinfo=pytz.timezone("CET")),
+            ).replace(tzinfo=UTC),
         )
