@@ -18,7 +18,7 @@ from .exceptions import (
     ODPEindhovenResultsError,
     ODPEindhovenTypeError,
 )
-from .models import ParkingSpot
+from .models import ParkingResponse, ParkingSpot
 
 VERSION = metadata.version(__package__)
 
@@ -125,6 +125,7 @@ class ODPEindhoven:
             raise ODPEindhovenConnectionError(msg) from exception
 
         content_type = response.headers.get("Content-Type", "")
+        text = await response.text()
         if "application/json" not in content_type:
             text = await response.text()
             msg = "Unexpected content type response from the Open Data Platform API."
@@ -133,7 +134,7 @@ class ODPEindhoven:
                 {"Content-Type": content_type, "response": text},
             )
 
-        return await response.json()
+        return text
 
     async def locations(
         self,
@@ -156,7 +157,7 @@ class ODPEindhoven:
             ODPEindhovenResultsError: When no results are found.
 
         """
-        locations = await self._request(
+        response = await self._request(
             "search/",
             params={
                 "dataset": "parkeerplaatsen",
@@ -164,9 +165,8 @@ class ODPEindhoven:
                 "refine.type_en_merk": await self.define_type(parking_type),
             },
         )
-        results: list[ParkingSpot] = [
-            ParkingSpot.from_json(item) for item in locations["records"]
-        ]
+        results = ParkingResponse.from_json(response).records
+
         if not results:
             msg = "No parking locations were found"
             raise ODPEindhovenResultsError(msg)
