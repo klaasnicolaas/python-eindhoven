@@ -32,6 +32,10 @@ async def test_parking_model(
     locations: list[ParkingSpot] = await odp_eindhoven_client.locations(parking_type=1)
     assert locations == snapshot
 
+    # Test the first location geometry properties
+    assert locations[0].geometry.latitude == snapshot
+    assert locations[0].geometry.longitude == snapshot
+
 
 async def test_permit_parking_type(
     aresponses: ResponsesMockServer,

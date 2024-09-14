@@ -49,14 +49,14 @@ You can use the following parameters in your request:
 - **limit** (default: 10) - How many results you want to retrieve.
 - **parking_type** (default: 1) - See the list below to find the corresponding number.
 
-| parking_type | number |
-| :----------- | :----: |
-| Parkeerplaats | 1 |
-| Parkeerplaats Vergunning | 2 |
-| Parkeerplaats Gehandicapten | 3 |
-| Parkeerplaats Afgekruist | 4 |
-| Parkeerplaats laden/lossen | 5 |
-| Parkeerplaats Electrisch opladen | 6 |
+| parking_type                     | number |
+| :------------------------------- | :----: |
+| Parkeerplaats                    | 1      |
+| Parkeerplaats Vergunning         | 2      |
+| Parkeerplaats Gehandicapten      | 3      |
+| Parkeerplaats Afgekruist         | 4      |
+| Parkeerplaats laden/lossen       | 5      |
+| Parkeerplaats Electrisch opladen | 6      |
 
 You get the following output data back with this python package:
 
