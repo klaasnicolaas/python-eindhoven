@@ -50,7 +50,7 @@ You can use the following parameters in your request:
 - **parking_type** (default: ParkingType.PARKING) - See the list below to find the corresponding enum value.
 
 | `ParkingType`                    | Enum                      |
-| :------------------------------- | :-----------------------: |
+| :------------------------------- | :------------------------ |
 | Parkeerplaats                    | PARKING                   |
 | Parkeerplaats Vergunning         | PERMIT_PARKING            |
 | Parkeerplaats Gehandicapten      | DISABLED_PARKING          |
