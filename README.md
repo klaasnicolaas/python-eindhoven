@@ -47,28 +47,28 @@ You can read the following datasets with this package:
 You can use the following parameters in your request:
 
 - **limit** (default: 10) - How many results you want to retrieve.
-- **parking_type** (default: 1) - See the list below to find the corresponding number.
+- **parking_type** (default: ParkingType.PARKING) - See the list below to find the corresponding enum value.
 
-| parking_type                     | number |
-| :------------------------------- | :----: |
-| Parkeerplaats                    | 1      |
-| Parkeerplaats Vergunning         | 2      |
-| Parkeerplaats Gehandicapten      | 3      |
-| Parkeerplaats Afgekruist         | 4      |
-| Parkeerplaats laden/lossen       | 5      |
-| Parkeerplaats Electrisch opladen | 6      |
+| `ParkingType`                    | Enum                      |
+| :------------------------------- | :-----------------------: |
+| Parkeerplaats                    | PARKING                   |
+| Parkeerplaats Vergunning         | PERMIT_PARKING            |
+| Parkeerplaats Gehandicapten      | DISABLED_PARKING          |
+| Parkeerplaats Afgekruist         | CROSSED_OUT_PARKING       |
+| Parkeerplaats laden/lossen       | LOADING_UNLOADING_PARKING |
+| Parkeerplaats Electrisch opladen | ELECTRIC_CHARGING_PARKING |
 
 You get the following output data back with this python package:
 
-| Variable | Type | Description |
-| :------- | :--- | :---------- |
-| `spot_id` | string | The id of the parking spot |
-| `parking_type` | string | The type of parking of the parking spot |
-| `street` | string | The street name where this parking spot is located |
-| `number` | int | The number of parkings spots on this location |
-| `longitude` | float | The longitude of the parking spot |
-| `latitude` | float | The latitude of the parking spot |
-| `updated_at` | datetime | When this parking spot was updated in the dataset |
+| Variable       | Type     | Description                                        |
+| :------------- | :------- | :------------------------------------------------- |
+| `spot_id`      | string   | The id of the parking spot                         |
+| `parking_type` | string   | The type of parking of the parking spot            |
+| `street`       | string   | The street name where this parking spot is located |
+| `number`       | int      | The number of parkings spots on this location      |
+| `longitude`    | float    | The longitude of the parking spot                  |
+| `latitude`     | float    | The latitude of the parking spot                   |
+| `updated_at`   | datetime | When this parking spot was updated in the dataset  |
 </details>
 
 ### Example
@@ -76,13 +76,16 @@ You get the following output data back with this python package:
 ```python
 import asyncio
 
-from eindhoven import ODPEindhoven
+from eindhoven import ODPEindhoven, ParkingType
 
 
 async def main() -> None:
     """Show example on using the Open Data Platform API of Eindhoven."""
     async with ODPEindhoven() as client:
-        locations = await client.locations(limit=100, parking_type=4)
+        locations = await client.locations(
+            limit=100,
+            parking_type=ParkingType.PARKING,
+        )
         print(locations)
 
 
