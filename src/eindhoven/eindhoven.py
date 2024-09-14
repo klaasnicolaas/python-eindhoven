@@ -16,7 +16,6 @@ from .exceptions import (
     ODPEindhovenConnectionError,
     ODPEindhovenError,
     ODPEindhovenResultsError,
-    ODPEindhovenTypeError,
 )
 from .models import ParkingResponse, ParkingSpot, ParkingType
 
