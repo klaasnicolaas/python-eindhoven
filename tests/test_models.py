@@ -7,6 +7,8 @@ from typing import TYPE_CHECKING
 from aresponses import ResponsesMockServer
 from syrupy.assertion import SnapshotAssertion
 
+from eindhoven import ParkingType
+
 from . import load_fixtures
 
 if TYPE_CHECKING:
@@ -29,7 +31,9 @@ async def test_parking_model(
             text=load_fixtures("1_parkings.json"),
         ),
     )
-    locations: list[ParkingSpot] = await odp_eindhoven_client.locations(parking_type=1)
+    locations: list[ParkingSpot] = await odp_eindhoven_client.locations(
+        parking_type=ParkingType.PARKING
+    )
     assert locations == snapshot
 
     # Test the first location geometry properties
@@ -53,7 +57,9 @@ async def test_permit_parking_type(
             text=load_fixtures("2_permit_parkings.json"),
         ),
     )
-    locations: list[ParkingSpot] = await odp_eindhoven_client.locations(parking_type=2)
+    locations: list[ParkingSpot] = await odp_eindhoven_client.locations(
+        parking_type=ParkingType.PERMIT_PARKING
+    )
     assert locations == snapshot
 
 
@@ -73,7 +79,9 @@ async def test_disabled_parking_type(
             text=load_fixtures("3_disabled_parkings.json"),
         ),
     )
-    locations: list[ParkingSpot] = await odp_eindhoven_client.locations(parking_type=3)
+    locations: list[ParkingSpot] = await odp_eindhoven_client.locations(
+        parking_type=ParkingType.DISABLED_PARKING
+    )
     assert locations == snapshot
 
 
@@ -93,7 +101,9 @@ async def test_crossed_out_parking_type(
             text=load_fixtures("4_crossed_out_parkings.json"),
         ),
     )
-    locations: list[ParkingSpot] = await odp_eindhoven_client.locations(parking_type=4)
+    locations: list[ParkingSpot] = await odp_eindhoven_client.locations(
+        parking_type=ParkingType.CROSSED_OUT_PARKING
+    )
     assert locations == snapshot
 
 
@@ -113,7 +123,9 @@ async def test_loading_parking_type(
             text=load_fixtures("5_loading_parkings.json"),
         ),
     )
-    locations: list[ParkingSpot] = await odp_eindhoven_client.locations(parking_type=5)
+    locations: list[ParkingSpot] = await odp_eindhoven_client.locations(
+        parking_type=ParkingType.LOADING_UNLOADING_PARKING
+    )
     assert locations == snapshot
 
 
@@ -133,5 +145,7 @@ async def test_charging_parking_type(
             text=load_fixtures("6_charging_parkings.json"),
         ),
     )
-    locations: list[ParkingSpot] = await odp_eindhoven_client.locations(parking_type=6)
+    locations: list[ParkingSpot] = await odp_eindhoven_client.locations(
+        parking_type=ParkingType.ELECTRIC_CHARGING_PARKING
+    )
     assert locations == snapshot

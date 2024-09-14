@@ -7,7 +7,7 @@ from .exceptions import (
     ODPEindhovenResultsError,
     ODPEindhovenTypeError,
 )
-from .models import BaseResponse, ParkingSpot
+from .models import BaseResponse, ParkingSpot, ParkingType
 
 __all__ = [
     "ODPEindhoven",
@@ -17,4 +17,5 @@ __all__ = [
     "ODPEindhovenTypeError",
     "BaseResponse",
     "ParkingSpot",
+    "ParkingType",
 ]
