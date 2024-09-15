@@ -58,17 +58,34 @@ You can use the following parameters in your request:
 | Parkeerplaats laden/lossen       | LOADING_UNLOADING_PARKING |
 | Parkeerplaats Electrisch opladen | ELECTRIC_CHARGING_PARKING |
 
-You get the following output data back with this python package:
+You get the following output data back with this dataset:
 
-| Variable       | Type     | Description                                        |
+| Attribute    | Type        | Description                                       |
+| :----------- | :---------- | :------------------------------------------------ |
+| `spot_id`    | string      | The id of the parking spot                        |
+| `data`       | ParkingData | The parking data of the parking spot              |
+| `geometry`   | Geometry    | The geometry of the parking spot                  |
+| `updated_at` | datetime    | When this parking spot was updated in the dataset |
+
+#### ParkingData
+
+The parking data of the parking spot.
+
+| Attribute      | Type     | Description                                        |
 | :------------- | :------- | :------------------------------------------------- |
-| `spot_id`      | string   | The id of the parking spot                         |
 | `parking_type` | string   | The type of parking of the parking spot            |
 | `street`       | string   | The street name where this parking spot is located |
 | `number`       | int      | The number of parkings spots on this location      |
-| `longitude`    | float    | The longitude of the parking spot                  |
-| `latitude`     | float    | The latitude of the parking spot                   |
-| `updated_at`   | datetime | When this parking spot was updated in the dataset  |
+
+#### Geometry
+
+The geometry of the parking spot is a GeoJSON object. The coordinates are in the WGS84 coordinate system.
+
+| Attribute     | Type  | Description                         |
+| :------------ | :---- | :---------------------------------- |
+| `coordinates` | list  | The coordinates of the parking spot |
+| `longitude`   | float | The longitude of the parking spot   |
+| `latitude`    | float | The latitude of the parking spot    |
 </details>
 
 ### Example
