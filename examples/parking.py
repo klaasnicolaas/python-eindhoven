@@ -13,10 +13,19 @@ async def main() -> None:
             limit=200,
             parking_type=ParkingType.DISABLED_PARKING,
         )
+        print(locations)
 
         count: int = len(locations)
         for item in locations:
-            print(item)
+            print("__________________________")
+            print(f"Spot ID: {item.spot_id}")
+            print(f"Parking type: {item.data.parking_type}")
+            print(f"Street: {item.data.street}")
+            print(f"Number: {item.data.number}")
+            print()
+            print("GEOMETRY")
+            print(f"Latitude: {item.geometry.latitude}")
+            print(f"Longitude: {item.geometry.longitude}")
 
         print("__________________________")
         print(f"Total locations found: {count}")
