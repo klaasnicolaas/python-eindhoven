@@ -9,9 +9,5 @@ class ODPEindhovenConnectionError(ODPEindhovenError):
     """Open Data Platform Eindhoven - connection exception."""
 
 
-class ODPEindhovenTypeError(ODPEindhovenError):
-    """Open Data Platform Eindhoven - parking type exception."""
-
-
 class ODPEindhovenResultsError(ODPEindhovenError):
     """Open Data Platform Eindhoven - no results exception."""

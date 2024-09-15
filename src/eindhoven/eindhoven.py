@@ -16,9 +16,8 @@ from .exceptions import (
     ODPEindhovenConnectionError,
     ODPEindhovenError,
     ODPEindhovenResultsError,
-    ODPEindhovenTypeError,
 )
-from .models import ParkingResponse, ParkingSpot
+from .models import ParkingResponse, ParkingSpot, ParkingType
 
 VERSION = metadata.version(__package__)
 
@@ -31,38 +30,6 @@ class ODPEindhoven:
     session: ClientSession | None = None
 
     _close_session: bool = False
-
-    @staticmethod
-    async def define_type(parking_type: int) -> str:
-        """Define the parking type.
-
-        Args:
-        ----
-            parking_type: The selected parking type number.
-
-        Returns:
-        -------
-            The parking type as string.
-
-        Raises:
-        ------
-            ODPEindhovenTypeError: If the parking type is not listed.
-
-        """
-        options = {
-            1: "Parkeerplaats",
-            2: "Parkeerplaats Vergunning",
-            3: "Parkeerplaats Gehandicapten",
-            4: "Parkeerplaats Afgekruist",
-            5: "Parkeerplaats laden/lossen",
-            6: "Parkeerplaats Electrisch opladen",
-        }.get(parking_type)
-
-        # Check if the parking type is listed
-        if options is None:
-            msg = "The selected number does not match the list of parking types"
-            raise ODPEindhovenTypeError(msg)
-        return options
 
     async def _request(
         self,
@@ -139,14 +106,14 @@ class ODPEindhoven:
     async def locations(
         self,
         limit: int = 10,
-        parking_type: int = 1,
+        parking_type: ParkingType = ParkingType.PARKING,
     ) -> list[ParkingSpot]:
         """Get all the parking locations.
 
         Args:
         ----
-            limit: Number of rows to return.
-            parking_type: The selected parking type number.
+            limit (int): Number of rows to return.
+            parking_type (enum): The selected parking type.
 
         Returns:
         -------
@@ -162,7 +129,7 @@ class ODPEindhoven:
             params={
                 "dataset": "parkeerplaatsen",
                 "rows": limit,
-                "refine.type_en_merk": await self.define_type(parking_type),
+                "refine.type_en_merk": parking_type.value,
             },
         )
         results = ParkingResponse.from_json(response).records
