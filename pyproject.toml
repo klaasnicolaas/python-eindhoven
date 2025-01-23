@@ -1,14 +1,12 @@
-[tool.poetry]
+[project]
 name = "eindhoven"
 version = "0.0.0"
 description = "Asynchronous Python client providing Open Data information of Eindhoven"
-authors = ["Klaas Schoute <hello@student-techlife.com>"]
-maintainers = ["Klaas Schoute <hello@student-techlife.com>"]
+authors = [{ name="Klaas Schoute", email="<hello@student-techlife.com>"}]
+maintainers = [{name="Klaas Schoute", email="<hello@student-techlife.com>"}]
 license = "MIT"
+requires-python = ">=3.11"
 readme = "README.md"
-homepage = "https://github.com/klaasnicolaas/python-eindhoven"
-repository = "https://github.com/klaasnicolaas/python-eindhoven"
-documentation = "https://github.com/klaasnicolaas/python-eindhoven"
 keywords = ["parking", "eindhoven", "locations", "api", "async", "client"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
@@ -22,6 +20,7 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+dynamic = ["dependencies"]
 packages = [
   { include = "eindhoven", from = "src" },
 ]
@@ -33,7 +32,10 @@ orjson = "^3.10.7"
 python = "^3.11"
 yarl = ">=1.6.0"
 
-[tool.poetry.urls]
+[project.urls]
+homepage = "https://github.com/klaasnicolaas/python-eindhoven"
+repository = "https://github.com/klaasnicolaas/python-eindhoven"
+documentation = "https://github.com/klaasnicolaas/python-eindhoven"
 "Bug Tracker" = "https://github.com/klaasnicolaas/python-eindhoven/issues"
 Changelog = "https://github.com/klaasnicolaas/python-eindhoven/releases"
 
@@ -136,7 +138,6 @@ lint.ignore = [
 
   # Conflicts with the Ruff formatter
   "COM812",
-  "ISC001",
 ]
 
 [tool.ruff.lint.flake8-pytest-style]
