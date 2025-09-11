@@ -13,13 +13,9 @@
 [![GitHub Last Commit][last-commit-shield]][commits-url]
 [![Open in Dev Containers][devcontainer-shield]][devcontainer]
 
-[![Code Quality][code-quality-shield]][code-quality]
 [![Build Status][build-shield]][build-url]
 [![Typing Status][typing-shield]][typing-url]
-
-[![Maintainability][maintainability-shield]][maintainability-url]
 [![Code Coverage][codecov-shield]][codecov-url]
-
 
 Asynchronous Python client for the open datasets of Eindhoven (The Netherlands).
 
@@ -213,8 +209,6 @@ SOFTWARE.
 <!-- MARKDOWN LINKS & IMAGES -->
 [build-shield]: https://github.com/klaasnicolaas/python-eindhoven/actions/workflows/tests.yaml/badge.svg
 [build-url]: https://github.com/klaasnicolaas/python-eindhoven/actions/workflows/tests.yaml
-[code-quality-shield]: https://github.com/klaasnicolaas/python-eindhoven/actions/workflows/codeql.yaml/badge.svg
-[code-quality]: https://github.com/klaasnicolaas/python-eindhoven/actions/workflows/codeql.yaml
 [commits-shield]: https://img.shields.io/github/commit-activity/y/klaasnicolaas/python-eindhoven.svg
 [commits-url]: https://github.com/klaasnicolaas/python-eindhoven/commits/main
 [codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-eindhoven/branch/main/graph/badge.svg?token=4AMI23ZT7C
@@ -226,8 +220,6 @@ SOFTWARE.
 [license-shield]: https://img.shields.io/github/license/klaasnicolaas/python-eindhoven.svg
 [last-commit-shield]: https://img.shields.io/github/last-commit/klaasnicolaas/python-eindhoven.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2025.svg
-[maintainability-shield]: https://api.codeclimate.com/v1/badges/c577da6bb1b3bb6553bd/maintainability
-[maintainability-url]: https://codeclimate.com/github/klaasnicolaas/python-eindhoven/maintainability
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
 [pypi]: https://pypi.org/project/eindhoven/
 [python-versions-shield]: https://img.shields.io/pypi/pyversions/eindhoven
