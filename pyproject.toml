@@ -51,7 +51,7 @@ pylint = "3.3.8"
 pytest = "8.4.2"
 pytest-asyncio = "1.1.0"
 pytest-cov = "7.0.0"
-ruff = "0.12.12"
+ruff = "0.13.0"
 syrupy = "4.9.1"
 yamllint = "1.37.1"
 
@@ -127,9 +127,7 @@ asyncio_mode = "auto"
 target-version = "py311"
 lint.select = ["ALL"]
 lint.ignore = [
-  "ANN101",  # Self... explanatory
-  "ANN102",  # cls... just as useless
-  "ANN401",  # Opinioated warning on disallowing dynamically typed expressions
+  "ANN401",  # Opinionated warning on disallowing dynamically typed expressions
   "D203",    # Conflicts with other rules
   "D213",    # Conflicts with other rules
   "D417",    # False positives in some occasions

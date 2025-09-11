@@ -26,7 +26,7 @@ class ParkingType(str, Enum):
 
 
 @dataclass
-class BaseResponse(Generic[_ResultDataT], DataClassORJSONMixin):
+class BaseResponse(DataClassORJSONMixin, Generic[_ResultDataT]):
     """Base response object for the API."""
 
     # pylint: disable-next=too-few-public-methods
