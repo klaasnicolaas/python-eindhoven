@@ -5,13 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Generic, TypeVar
 
 from mashumaro import field_options
 from mashumaro.config import BaseConfig
 from mashumaro.mixins.orjson import DataClassORJSONMixin
-
-_ResultDataT = TypeVar("_ResultDataT")
 
 
 class ParkingType(str, Enum):
@@ -26,7 +23,7 @@ class ParkingType(str, Enum):
 
 
 @dataclass
-class BaseResponse(DataClassORJSONMixin, Generic[_ResultDataT]):
+class BaseResponse[ResultDataT](DataClassORJSONMixin):
     """Base response object for the API."""
 
     # pylint: disable-next=too-few-public-methods
@@ -36,7 +33,7 @@ class BaseResponse(DataClassORJSONMixin, Generic[_ResultDataT]):
         serialize_by_alias = True
 
     hits: int = field(metadata=field_options(alias="nhits"))
-    records: _ResultDataT = field(metadata=field_options(alias="records"))
+    records: ResultDataT = field(metadata=field_options(alias="records"))
 
 
 @dataclass(slots=True)
