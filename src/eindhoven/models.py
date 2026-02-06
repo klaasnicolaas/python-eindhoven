@@ -4,14 +4,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from enum import Enum
+from enum import StrEnum
 
 from mashumaro import field_options
 from mashumaro.config import BaseConfig
 from mashumaro.mixins.orjson import DataClassORJSONMixin
 
 
-class ParkingType(str, Enum):
+class ParkingType(StrEnum):
     """Enum representing the parking types."""
 
     PARKING = "Parkeerplaats"
