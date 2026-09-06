@@ -26,7 +26,6 @@ class ParkingType(StrEnum):
 class BaseResponse[ResultDataT](DataClassORJSONMixin):
     """Base response object for the API."""
 
-    # pylint: disable-next=too-few-public-methods
     class Config(BaseConfig):
         """Configuration for mashumaro."""
 
