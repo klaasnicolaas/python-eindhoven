@@ -107,11 +107,11 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## Complete snapshot contract
+## Complete collection contract
 
-Use `await client.parking_snapshot(parking_type=ParkingType.DISABLED_PARKING, max_records=9900)` for a complete selection. The existing `locations(limit=..., parking_type=...)` remains a limited convenience API.
+Use `await client.parking_collection(parking_type=ParkingType.DISABLED_PARKING, max_records=9900)` for a complete selection. The existing `locations(limit=..., parking_type=...)` remains a limited convenience API.
 
-All parking snapshot clients share this envelope:
+All parking collection clients share this envelope:
 
 | Field | Meaning |
 | :---- | :------ |
@@ -119,11 +119,11 @@ All parking snapshot clients share this envelope:
 | `total_count` | Source-declared count for the selected category; equals `len(records)` |
 | `pages_fetched` | Actual record pages requested, including an empty first page |
 | `source_version` | Opaque source revision token, or `None` where unavailable; never a record modification date |
-| `complete` | Always `True` on success; failures raise an exception rather than returning a partial snapshot |
+| `complete` | Always `True` on success; failures raise an exception rather than returning a partial collection |
 
-Eindhoven returns `ParkingSnapshotRecord` with `spot_id` (original positive integer `objectid` rendered as a decimal string), `source_attributes` (all original ODSv2 fields, including null values), and `geometry` (original WGS84 GeoJSON Point). Consumer-specific mapping, access decisions, and publication remain outside this package.
+Eindhoven returns `ParkingCollectionRecord` with `spot_id` (original positive integer `objectid` rendered as a decimal string), `source_attributes` (all original ODSv2 fields, including null values), and `geometry` (original WGS84 GeoJSON Point). Consumer-specific mapping, access decisions, and publication remain outside this package.
 
-The client requests pages of 100 ordered by `objectid`, validates totals, page lengths and unique IDs, and compares the portal's `data_processed` token before and after collection. Empty selections return a complete empty snapshot. The default safety bound is 9900 records and may be lowered; exceeding it raises `ODPEindhovenResultsError`. The revision comparison is an observation of portal metadata, not a transaction guarantee by the provider.
+The client requests pages of 100 ordered by `objectid`, validates totals, page lengths and unique IDs, and compares the portal's `data_processed` token before and after collection. Empty selections return a complete empty collection. The default safety bound is 9900 records and may be lowered; exceeding it raises `ODPEindhovenResultsError`. The revision comparison is an observation of portal metadata, not a transaction guarantee by the provider.
 
 ## Use cases
 

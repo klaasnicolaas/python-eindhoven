@@ -95,7 +95,7 @@ class ParkingResponse(BaseResponse[list[ParkingSpot]]):
 
 
 @dataclass(slots=True)
-class ParkingSnapshotRecord:
+class ParkingCollectionRecord:
     """Original source record without consumer-specific parking interpretation."""
 
     spot_id: str
@@ -104,10 +104,10 @@ class ParkingSnapshotRecord:
 
 
 @dataclass(slots=True)
-class ParkingSnapshot:
+class ParkingCollection:
     """Complete selection from one unchanged observed source version."""
 
-    records: list[ParkingSnapshotRecord]
+    records: list[ParkingCollectionRecord]
     total_count: int
     pages_fetched: int
     source_version: str | None

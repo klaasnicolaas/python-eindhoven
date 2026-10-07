@@ -8,8 +8,8 @@ from .exceptions import (
 )
 from .models import (
     BaseResponse,
-    ParkingSnapshot,
-    ParkingSnapshotRecord,
+    ParkingCollection,
+    ParkingCollectionRecord,
     ParkingSpot,
     ParkingType,
 )
@@ -20,8 +20,8 @@ __all__ = [
     "ODPEindhovenConnectionError",
     "ODPEindhovenError",
     "ODPEindhovenResultsError",
-    "ParkingSnapshot",
-    "ParkingSnapshotRecord",
+    "ParkingCollection",
+    "ParkingCollectionRecord",
     "ParkingSpot",
     "ParkingType",
 ]

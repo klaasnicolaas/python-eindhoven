@@ -20,9 +20,9 @@ from .exceptions import (
     ODPEindhovenResultsError,
 )
 from .models import (
+    ParkingCollection,
+    ParkingCollectionRecord,
     ParkingResponse,
-    ParkingSnapshot,
-    ParkingSnapshotRecord,
     ParkingSpot,
     ParkingType,
 )
@@ -158,7 +158,7 @@ class ODPEindhoven:
 
     async def dataset_version(self) -> str:
         """Return the portal's opaque data_processed token."""
-        metadata_response = await self._snapshot_request()
+        metadata_response = await self._collection_request()
         try:
             version = metadata_response["metas"]["default"]["data_processed"]
         except (KeyError, TypeError) as exception:
@@ -169,7 +169,7 @@ class ODPEindhoven:
             raise ODPEindhovenResultsError(msg)
         return version
 
-    async def _snapshot_request(
+    async def _collection_request(
         self, path: str = "", params: dict[str, Any] | None = None
     ) -> dict[str, Any]:
         """Read an ODSv2 dataset response through the existing transport."""
@@ -181,19 +181,19 @@ class ODPEindhoven:
         try:
             result = orjson.loads(response)
         except orjson.JSONDecodeError as exception:
-            msg = "Invalid Eindhoven snapshot JSON"
+            msg = "Invalid Eindhoven collection JSON"
             raise ODPEindhovenResultsError(msg) from exception
         if not isinstance(result, dict):
             msg = "Expected an Eindhoven response object"
             raise ODPEindhovenResultsError(msg)
         return result
 
-    async def parking_snapshot(
+    async def parking_collection(
         self,
         parking_type: ParkingType = ParkingType.DISABLED_PARKING,
         *,
         max_records: int = 9900,
-    ) -> ParkingSnapshot:
+    ) -> ParkingCollection:
         """Fetch the entire selection or fail without returning partial records."""
         if (
             isinstance(max_records, bool)
@@ -203,12 +203,12 @@ class ODPEindhoven:
             msg = "max_records must be between 1 and 9900"
             raise ValueError(msg)
         version = await self.dataset_version()
-        records: list[ParkingSnapshotRecord] = []
+        records: list[ParkingCollectionRecord] = []
         ids: set[str] = set()
         total: int | None = None
         pages = 0
         while total is None or len(records) < total:
-            page = await self._snapshot_request(
+            page = await self._collection_request(
                 "/records",
                 {
                     "where": f"type_en_merk='{parking_type.value}'",
@@ -234,7 +234,7 @@ class ODPEindhoven:
                 msg = "Eindhoven returned an incomplete page"
                 raise ODPEindhovenResultsError(msg)
             for item in batch:
-                record = self._snapshot_record(item, parking_type)
+                record = self._collection_record(item, parking_type)
                 if record.spot_id in ids:
                     msg = "Eindhoven returned duplicate source IDs"
                     raise ODPEindhovenResultsError(msg)
@@ -244,10 +244,12 @@ class ODPEindhoven:
         if await self.dataset_version() != version:
             msg = "Eindhoven dataset changed during collection"
             raise ODPEindhovenResultsError(msg)
-        return ParkingSnapshot(records, total, pages, version)
+        return ParkingCollection(records, total, pages, version)
 
     @staticmethod
-    def _snapshot_record(item: Any, parking_type: ParkingType) -> ParkingSnapshotRecord:
+    def _collection_record(
+        item: Any, parking_type: ParkingType
+    ) -> ParkingCollectionRecord:
         """Preserve raw fields and the source's WGS84 Point and objectid."""
         if not isinstance(item, dict):
             msg = "Expected an Eindhoven source record object"
@@ -285,7 +287,7 @@ class ODPEindhoven:
             ):
                 msg = "Invalid Eindhoven WGS84 coordinate"
                 raise ODPEindhovenResultsError(msg)
-        return ParkingSnapshotRecord(str(object_id), item.copy(), geometry.copy())
+        return ParkingCollectionRecord(str(object_id), item.copy(), geometry.copy())
 
     async def close(self) -> None:
         """Close open client session."""

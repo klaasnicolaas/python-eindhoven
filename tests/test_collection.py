@@ -1,4 +1,4 @@
-"""Complete snapshot protocol and original source data guarantees."""
+"""Complete collection protocol and original source data guarantees."""
 
 from typing import Any
 from unittest.mock import AsyncMock, patch
@@ -27,7 +27,7 @@ def version(value: Any = "opaque-version") -> dict[str, Any]:
     return {"metas": {"default": {"data_processed": value}}}
 
 
-async def test_snapshot_pages() -> None:
+async def test_collection_pages() -> None:
     """Fetch every page, preserve source fields, and keep original IDs."""
     first = [record(number) for number in range(1, 101)]
     client = ODPEindhoven()
@@ -39,24 +39,24 @@ async def test_snapshot_pages() -> None:
             version(),
         ]
     )
-    with patch.object(client, "_snapshot_request", request):
-        snapshot = await client.parking_snapshot()
-    assert snapshot.complete is True
-    assert snapshot.total_count == len(snapshot.records) == 101
-    assert snapshot.pages_fetched == 2
-    assert snapshot.source_version == "opaque-version"
-    assert snapshot.records[0].spot_id == "1"
-    assert snapshot.records[0].source_attributes == first[0]
-    assert snapshot.records[0].geometry == first[0]["geo_shape"]["geometry"]
+    with patch.object(client, "_collection_request", request):
+        collection = await client.parking_collection()
+    assert collection.complete is True
+    assert collection.total_count == len(collection.records) == 101
+    assert collection.pages_fetched == 2
+    assert collection.source_version == "opaque-version"
+    assert collection.records[0].spot_id == "1"
+    assert collection.records[0].source_attributes == first[0]
+    assert collection.records[0].geometry == first[0]["geo_shape"]["geometry"]
     assert request.call_args_list[2].args[1]["offset"] == 100
     assert request.call_args_list[1].args[1]["order_by"] == "objectid asc"
 
 
-async def test_empty_snapshot() -> None:
+async def test_empty_collection() -> None:
     """A confirmed empty selection succeeds with its actual first page counted."""
     with patch.object(
         ODPEindhoven,
-        "_snapshot_request",
+        "_collection_request",
         AsyncMock(
             side_effect=[
                 version(),
@@ -65,11 +65,11 @@ async def test_empty_snapshot() -> None:
             ]
         ),
     ):
-        snapshot = await ODPEindhoven().parking_snapshot()
-    assert snapshot.records == []
-    assert snapshot.total_count == 0
-    assert snapshot.pages_fetched == 1
-    assert snapshot.complete is True
+        collection = await ODPEindhoven().parking_collection()
+    assert collection.records == []
+    assert collection.total_count == 0
+    assert collection.pages_fetched == 1
+    assert collection.complete is True
 
 
 @pytest.mark.parametrize(
@@ -90,7 +90,7 @@ async def test_invalid_pages(count: Any, batch: Any) -> None:
     with (
         patch.object(
             ODPEindhoven,
-            "_snapshot_request",
+            "_collection_request",
             AsyncMock(
                 side_effect=[
                     version(),
@@ -100,7 +100,7 @@ async def test_invalid_pages(count: Any, batch: Any) -> None:
         ),
         pytest.raises(ODPEindhovenResultsError),
     ):
-        await ODPEindhoven().parking_snapshot()
+        await ODPEindhoven().parking_collection()
 
 
 async def test_changing_count() -> None:
@@ -108,7 +108,7 @@ async def test_changing_count() -> None:
     with (
         patch.object(
             ODPEindhoven,
-            "_snapshot_request",
+            "_collection_request",
             AsyncMock(
                 side_effect=[
                     version(),
@@ -119,7 +119,7 @@ async def test_changing_count() -> None:
         ),
         pytest.raises(ODPEindhovenResultsError, match="count"),
     ):
-        await ODPEindhoven().parking_snapshot()
+        await ODPEindhoven().parking_collection()
 
 
 async def test_changing_version() -> None:
@@ -127,7 +127,7 @@ async def test_changing_version() -> None:
     with (
         patch.object(
             ODPEindhoven,
-            "_snapshot_request",
+            "_collection_request",
             AsyncMock(
                 side_effect=[
                     version(),
@@ -138,7 +138,7 @@ async def test_changing_version() -> None:
         ),
         pytest.raises(ODPEindhovenResultsError, match="changed"),
     ):
-        await ODPEindhoven().parking_snapshot()
+        await ODPEindhoven().parking_collection()
 
 
 @pytest.mark.parametrize("metadata_response", [{}, version(None), version(" ")])
@@ -146,18 +146,20 @@ async def test_missing_version(metadata_response: dict[str, Any]) -> None:
     """Require meaningful portal revision metadata for Eindhoven."""
     with (
         patch.object(
-            ODPEindhoven, "_snapshot_request", AsyncMock(return_value=metadata_response)
+            ODPEindhoven,
+            "_collection_request",
+            AsyncMock(return_value=metadata_response),
         ),
         pytest.raises(ODPEindhovenResultsError, match="version"),
     ):
-        await ODPEindhoven().parking_snapshot()
+        await ODPEindhoven().parking_collection()
 
 
 @pytest.mark.parametrize("maximum", [0, 9901, True, "100"])
 async def test_invalid_bound(maximum: Any) -> None:
     """Reject invalid safety bounds before contacting the provider."""
     with pytest.raises(ValueError, match="max_records"):
-        await ODPEindhoven().parking_snapshot(max_records=maximum)
+        await ODPEindhoven().parking_collection(max_records=maximum)
 
 
 @pytest.mark.parametrize(
@@ -197,7 +199,7 @@ async def test_invalid_records(item: Any) -> None:
     with (
         patch.object(
             ODPEindhoven,
-            "_snapshot_request",
+            "_collection_request",
             AsyncMock(
                 side_effect=[
                     version(),
@@ -207,24 +209,24 @@ async def test_invalid_records(item: Any) -> None:
         ),
         pytest.raises(ODPEindhovenResultsError),
     ):
-        await ODPEindhoven().parking_snapshot()
+        await ODPEindhoven().parking_collection()
 
 
 @pytest.mark.parametrize("body", ["invalid json", "[]"])
-async def test_invalid_snapshot_json(body: str) -> None:
-    """Reject invalid JSON response shapes through the snapshot transport."""
+async def test_invalid_collection_json(body: str) -> None:
+    """Reject invalid JSON response shapes through the collection transport."""
     with (
         patch.object(ODPEindhoven, "_request", AsyncMock(return_value=body)),
         pytest.raises(ODPEindhovenResultsError),
     ):
-        await ODPEindhoven().parking_snapshot()
+        await ODPEindhoven().parking_collection()
 
 
-async def test_snapshot_endpoint() -> None:
+async def test_collection_endpoint() -> None:
     """Use ODSv2 without changing the existing ODSv1 locations API."""
     request = AsyncMock(return_value=orjson.dumps({"total_count": 0, "results": []}))
     with patch.object(ODPEindhoven, "_request", request):
-        result = await ODPEindhoven()._snapshot_request("/records", {"limit": 100})
+        result = await ODPEindhoven()._collection_request("/records", {"limit": 100})
     assert result["total_count"] == 0
     assert (
         request.call_args.args[0]
@@ -233,7 +235,7 @@ async def test_snapshot_endpoint() -> None:
 
 
 async def test_bounded_response(aresponses: ResponsesMockServer) -> None:
-    """Reject overlarge snapshot bodies before parsing them."""
+    """Reject overlarge collection bodies before parsing them."""
     aresponses.add(
         "data.eindhoven.nl",
         "/api/explore/v2.1/catalog/datasets/parkeerplaatsen",
@@ -246,7 +248,7 @@ async def test_bounded_response(aresponses: ResponsesMockServer) -> None:
     )
     async with ODPEindhoven() as client:
         with pytest.raises(ODPEindhovenResultsError, match="size limit"):
-            await client.parking_snapshot()
+            await client.parking_collection()
 
 
 async def test_bounded_json_response(aresponses: ResponsesMockServer) -> None:
