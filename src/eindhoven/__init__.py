@@ -7,17 +7,21 @@ from .exceptions import (
     ODPEindhovenResultsError,
 )
 from .models import (
+    Geometry,
     ParkingCollection,
+    ParkingData,
     ParkingSpot,
     ParkingType,
 )
 
 __all__ = [
+    "Geometry",
     "ODPEindhoven",
     "ODPEindhovenConnectionError",
     "ODPEindhovenError",
     "ODPEindhovenResultsError",
     "ParkingCollection",
+    "ParkingData",
     "ParkingSpot",
     "ParkingType",
 ]

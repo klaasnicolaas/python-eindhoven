@@ -61,7 +61,8 @@ Both `locations()` and `parking_collection()` return the same `ParkingSpot` mode
 | :-------- | :--- | :---------- |
 | `spot_id` | string | Original positive integer `objectid` as a decimal string |
 | `source_attributes` | dict | All original ODSv2 fields, including null values |
-| `geometry` | dict | Original WGS84 GeoJSON Point; coordinates are longitude, latitude |
+| `data` | ParkingData | Typed `parking_type`, nullable `street` and nullable `number` (integer or float) |
+| `geometry` | Geometry | Typed WGS84 Point with `type`, `coordinates`, `latitude` and `longitude` |
 
 </details>
 
@@ -101,7 +102,7 @@ All parking collection clients share this envelope:
 | `source_version` | Opaque source revision token, or `None` where unavailable; never a record modification date |
 | `complete` | Always `True` on success; failures raise an exception rather than returning a partial collection |
 
-Eindhoven returns `ParkingSpot` with `spot_id` (original positive integer `objectid` rendered as a decimal string), `source_attributes` (all original ODSv2 fields, including null values), and `geometry` (original WGS84 GeoJSON Point). Consumer-specific mapping, access decisions, and publication remain outside this package.
+Eindhoven returns `ParkingSpot` with `spot_id` (original positive integer `objectid` rendered as a decimal string), `source_attributes` (all original ODSv2 fields, including null values), `data` (typed original parking fields), and `geometry` (typed WGS84 Point). The exact original geometry, including additional source fields, remains in `source_attributes["geo_shape"]["geometry"]`. Consumer-specific mapping, access decisions, and publication remain outside this package.
 
 The client requests pages of 100 ordered by `objectid`, validates totals, page lengths and unique IDs, and compares the portal's `data_processed` token before and after collection. Empty selections return a complete empty collection. The default safety bound is 9900 records and may be lowered; exceeding it raises `ODPEindhovenResultsError`. The revision comparison is an observation of portal metadata, not a transaction guarantee by the provider.
 
@@ -110,9 +111,9 @@ The client requests pages of 100 ordered by `objectid`, validates totals, page l
 This release changes the source endpoint and `ParkingSpot` shape. All requests now use `/api/explore/v2.1/catalog/datasets/parkeerplaatsen`; the ODSv1 path and response models are removed.
 
 - Replace hashed ODSv1 `recordid` identities with the original `objectid` exposed as `spot_id`. Do not treat these different IDs as equivalent.
-- Replace `spot.data.street` and `spot.data.number` with `spot.source_attributes["straat"]` and `spot.source_attributes["aantal"]`; explicit nulls remain unknown.
-- Replace `spot.geometry.latitude` / `.longitude` with `spot.geometry["coordinates"][1]` / `[0]`.
-- `updated_at`, `BaseResponse`, `ParkingResponse` and `ParkingData` are removed. ODSv2 does not provide the old per-record portal timestamp; `source_version` is an observed dataset revision token and must not be substituted for a record modification date.
+- `spot.data.parking_type`, `.street` and `.number` remain available through typed `ParkingData`. Street and number can be `None`; a fractional source number is retained as a float without rounding. All raw fields are additionally preserved in `spot.source_attributes`.
+- `spot.geometry.latitude`, `.longitude` and `.coordinates` remain available through typed `Geometry`; its `type` is `Point`. Exact additional geometry fields remain in the raw `source_attributes`.
+- `updated_at`, `BaseResponse` and `ParkingResponse` are removed. ODSv2 does not provide the old per-record portal timestamp; `source_version` is an observed dataset revision token and must not be substituted for a record modification date.
 - `locations()` retains its limited-list behavior and no-results exception. For a confirmed empty or complete selection, use `parking_collection()`.
 
 ## Use cases

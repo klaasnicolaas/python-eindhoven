@@ -213,6 +213,18 @@ class ODPEindhoven:
         if item.get("type_en_merk") != parking_type.value:
             msg = "Unexpected Eindhoven parking category"
             raise ODPEindhovenResultsError(msg)
+        street = item.get("straat")
+        if street is not None and not isinstance(street, str):
+            msg = "Invalid Eindhoven street"
+            raise ODPEindhovenResultsError(msg)
+        number = item.get("aantal")
+        if number is not None and (
+            isinstance(number, bool)
+            or not isinstance(number, (int, float))
+            or not math.isfinite(number)
+        ):
+            msg = "Invalid Eindhoven number"
+            raise ODPEindhovenResultsError(msg)
         shape = item.get("geo_shape")
         geometry = shape.get("geometry") if isinstance(shape, dict) else None
         if not isinstance(geometry, dict):
@@ -240,6 +252,11 @@ class ODPEindhoven:
                 "spot_id": str(object_id),
                 "source_attributes": item.copy(),
                 "geometry": geometry.copy(),
+                "data": {
+                    "type_en_merk": item["type_en_merk"],
+                    "straat": street,
+                    "aantal": number,
+                },
             }
         )
 

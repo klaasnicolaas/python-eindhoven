@@ -47,7 +47,7 @@ async def test_collection_pages() -> None:
     assert collection.source_version == "opaque-version"
     assert collection.records[0].spot_id == "1"
     assert collection.records[0].source_attributes == first[0]
-    assert collection.records[0].geometry == first[0]["geo_shape"]["geometry"]
+    assert collection.records[0].geometry.to_dict() == first[0]["geo_shape"]["geometry"]
     assert request.call_args_list[2].kwargs["params"]["offset"] == 100
     assert request.call_args_list[1].kwargs["params"]["order_by"] == "objectid asc"
 
@@ -166,6 +166,10 @@ async def test_invalid_bound(maximum: Any) -> None:
     "item",
     [
         None,
+        {**record(), "straat": 42},
+        {**record(), "aantal": True},
+        {**record(), "aantal": "1"},
+        {**record(), "aantal": float("nan")},
         {},
         {**record(), "objectid": True},
         {**record(), "objectid": "1"},

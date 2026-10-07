@@ -2,13 +2,18 @@
 # name: test_charging_parking_type
   list([
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Electrisch opladen',
+        street='Professor Dr Dorgelolaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.484090179656347,
           51.44487067822449,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -34,13 +39,18 @@
       spot_id='12010',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Electrisch opladen',
+        street='Biesterweg',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.487246232687543,
           51.42636980073094,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -66,13 +76,18 @@
       spot_id='13836',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Electrisch opladen',
+        street='Torenallee',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.460958348459787,
           51.44543944946517,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -98,13 +113,18 @@
       spot_id='20912',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Electrisch opladen',
+        street='Wilhelminaplein',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.470738162332851,
           51.43767495234641,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -130,13 +150,18 @@
       spot_id='19547',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Electrisch opladen',
+        street='Winkelcentrum Woensel',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.477724256533416,
           51.46912251620885,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -162,13 +187,18 @@
       spot_id='17492',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Electrisch opladen',
+        street='Ventoselaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.469230608406298,
           51.44031968307088,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -194,13 +224,18 @@
       spot_id='14100',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Electrisch opladen',
+        street='Dr Schaepmanlaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.482866882852026,
           51.42822819684571,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -226,13 +261,18 @@
       spot_id='13830',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Electrisch opladen',
+        street='Biesterweg',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.487240279474211,
           51.42634988692747,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -258,13 +298,18 @@
       spot_id='13837',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Electrisch opladen',
+        street='Tramstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.483304267522476,
           51.440504884740086,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -290,13 +335,18 @@
       spot_id='18773',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Electrisch opladen',
+        street='Deken van Somerenstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.4751052452053335,
           51.434404968582726,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -326,13 +376,18 @@
 # name: test_crossed_out_parking_type
   list([
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Afgekruist',
+        street='Michelangelolaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.4720713352312655,
           51.464376413342755,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -358,13 +413,18 @@
       spot_id='11946',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Afgekruist',
+        street='Michelangelolaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.473547800531344,
           51.464411039709105,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -390,13 +450,18 @@
       spot_id='11933',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Afgekruist',
+        street='Bomanshof',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.485006013818546,
           51.430399977668955,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -422,13 +487,18 @@
       spot_id='13665',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Afgekruist',
+        street='Wilhelminaplein',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.4713438738447415,
           51.43781205618678,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -454,13 +524,18 @@
       spot_id='18512',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Afgekruist',
+        street='Hof van Eden',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.4737975043994105,
           51.43348816472158,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -486,13 +561,18 @@
       spot_id='18820',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Afgekruist',
+        street='Hof van Eden',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.473617494361154,
           51.43337044799295,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -518,13 +598,18 @@
       spot_id='18821',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Afgekruist',
+        street='Gestelsestraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.472066348597859,
           51.43301043342078,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -550,13 +635,18 @@
       spot_id='18682',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Afgekruist',
+        street='Raiffeisenstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.482429392773308,
           51.44011918148758,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -582,13 +672,18 @@
       spot_id='16580',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Afgekruist',
+        street='Keizersgracht',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.475708617669073,
           51.4375550012714,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -614,13 +709,18 @@
       spot_id='16841',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Afgekruist',
+        street='Professor Dr Dorgelolaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.484752269463942,
           51.44435112864605,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -650,13 +750,18 @@
 # name: test_disabled_parking_type
   list([
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Gehandicapten',
+        street='Benedictusstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.468028294136795,
           51.45196590072531,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -682,13 +787,18 @@
       spot_id='23428',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Gehandicapten',
+        street='Hertog Hendrik van Brabantplein',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.48576495981318,
           51.43258489086503,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -714,13 +824,18 @@
       spot_id='23188',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Gehandicapten',
+        street='Willem van Hornestraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.487336523369197,
           51.43359907711495,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -746,13 +861,18 @@
       spot_id='23049',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Gehandicapten',
+        street='Niet ingevuld',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.462657655831373,
           51.43588190541636,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -778,13 +898,18 @@
       spot_id='22868',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Gehandicapten',
+        street='Schellingstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.490066186569297,
           51.435898978883735,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -810,13 +935,18 @@
       spot_id='22772',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Gehandicapten',
+        street='Winkelcentrum Woensel',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.477325002022769,
           51.4702825688508,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -842,13 +972,18 @@
       spot_id='12244',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Gehandicapten',
+        street='Frederiklaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.455993108656147,
           51.441731672624805,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -874,13 +1009,18 @@
       spot_id='12495',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Gehandicapten',
+        street='Marconilaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.458827795256831,
           51.449891599152984,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -906,13 +1046,18 @@
       spot_id='12891',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Gehandicapten',
+        street='Winkelcentrum Woensel',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.478167744280201,
           51.469735439493796,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -938,13 +1083,18 @@
       spot_id='12338',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Gehandicapten',
+        street='Winkelcentrum Woensel',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.478165499071164,
           51.46969216987122,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -974,13 +1124,18 @@
 # name: test_loading_parking_type
   list([
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats laden/lossen',
+        street='Kronehoefstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.467566134606305,
           51.45214043811088,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1006,13 +1161,18 @@
       spot_id='23420',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats laden/lossen',
+        street='Gestelsestraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.4719225803080604,
           51.433285852317034,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1038,13 +1198,18 @@
       spot_id='18681',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats laden/lossen',
+        street='Torenallee',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.460093640557604,
           51.44565424830635,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1070,13 +1235,18 @@
       spot_id='20914',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats laden/lossen',
+        street='Grote Berg',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.4744767226620015,
           51.43551302160987,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1102,13 +1272,18 @@
       spot_id='20646',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats laden/lossen',
+        street='Philitestraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.457403444276032,
           51.448258391184254,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1134,13 +1309,18 @@
       spot_id='20706',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats laden/lossen',
+        street='Hoogstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.468641608217367,
           51.43084001137937,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1166,13 +1346,18 @@
       spot_id='14937',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats laden/lossen',
+        street='Hoogstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.46870937352264,
           51.43089252074345,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1198,13 +1383,18 @@
       spot_id='14938',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats laden/lossen',
+        street='Philitestraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.45682286377073,
           51.44901986427776,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1230,13 +1420,18 @@
       spot_id='23356',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats laden/lossen',
+        street='Kronehoefstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.4674800825964756,
           51.45213619642506,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1262,13 +1457,18 @@
       spot_id='23419',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats laden/lossen',
+        street='Frederiklaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.4560555363217205,
           51.44165827018127,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1298,13 +1498,18 @@
 # name: test_parking_model
   list([
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats',
+        street='van Meursstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.474774482175889,
           51.42929171364541,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1330,13 +1535,18 @@
       spot_id='23269',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats',
+        street='van Meursstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.474524450039031,
           51.429371401892176,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1362,13 +1572,18 @@
       spot_id='23270',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats',
+        street='van Meursstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.474445274023191,
           51.42939752664452,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1394,13 +1609,18 @@
       spot_id='23271',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats',
+        street='van Meursstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.474384856563808,
           51.429421031474355,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1426,13 +1646,18 @@
       spot_id='23272',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats',
+        street='van Meursstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.474132684425932,
           51.42947335084988,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1458,13 +1683,18 @@
       spot_id='23273',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats',
+        street='van Meursstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.473815957374367,
           51.42956612005954,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1490,13 +1720,18 @@
       spot_id='23277',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats',
+        street='van Meursstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.473961684033574,
           51.42945262650903,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1522,13 +1757,18 @@
       spot_id='23279',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats',
+        street='Potgieterstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.476749582530006,
           51.43162431647239,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1554,13 +1794,18 @@
       spot_id='23351',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats',
+        street='Edenstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.477159477246228,
           51.43161227016372,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1586,13 +1831,18 @@
       spot_id='23353',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats',
+        street='Kronehoefstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.4665329757278425,
           51.4521057145467,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1628,13 +1878,18 @@
 # name: test_permit_parking_type
   list([
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Vergunning',
+        street='Michelangelolaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.471875282928675,
           51.464370174138594,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1660,13 +1915,18 @@
       spot_id='11952',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Vergunning',
+        street='Michelangelolaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.473749976284599,
           51.464413442384526,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1692,13 +1952,18 @@
       spot_id='11931',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Vergunning',
+        street='Michelangelolaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.47285347272649,
           51.464393692077614,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1724,13 +1989,18 @@
       spot_id='11937',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Vergunning',
+        street='Michelangelolaan',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.473425270901313,
           51.46440602495267,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1756,13 +2026,18 @@
       spot_id='11943',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Vergunning',
+        street='Smitsstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.472373282328308,
           51.437230597768846,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1788,13 +2063,18 @@
       spot_id='17991',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Vergunning',
+        street='Smitsstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.472178714735089,
           51.43736962937751,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1820,13 +2100,18 @@
       spot_id='17992',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Vergunning',
+        street='Smitsstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.472111818477869,
           51.43740963285452,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1852,13 +2137,18 @@
       spot_id='17993',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Vergunning',
+        street='Smitsstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.471953747608381,
           51.437531514929795,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1884,13 +2174,18 @@
       spot_id='17996',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Vergunning',
+        street='Smitsstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.471850213455201,
           51.43751446685524,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([
@@ -1916,13 +2211,18 @@
       spot_id='17997',
     ),
     ParkingSpot(
-      geometry=dict({
-        'coordinates': list([
+      data=ParkingData(
+        number=1.0,
+        parking_type='Parkeerplaats Vergunning',
+        street='Smitsstraat',
+      ),
+      geometry=Geometry(
+        coordinates=list([
           5.471832131954089,
           51.437613415634196,
         ]),
-        'type': 'Point',
-      }),
+        type='Point',
+      ),
       source_attributes=dict({
         'aantal': 1.0,
         'geo_point_2d': list([

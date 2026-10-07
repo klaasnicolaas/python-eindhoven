@@ -18,13 +18,13 @@ async def main() -> None:
         for item in locations:
             print("__________________________")
             print(f"Spot ID: {item.spot_id}")
-            print(f"Parking type: {item.source_attributes['type_en_merk']}")
-            print(f"Street: {item.source_attributes['straat']}")
-            print(f"Number: {item.source_attributes['aantal']}")
+            print(f"Parking type: {item.data.parking_type}")
+            print(f"Street: {item.data.street}")
+            print(f"Number: {item.data.number}")
             print()
             print("GEOMETRY")
-            print(f"Latitude: {item.geometry['coordinates'][1]}")
-            print(f"Longitude: {item.geometry['coordinates'][0]}")
+            print(f"Latitude: {item.geometry.latitude}")
+            print(f"Longitude: {item.geometry.longitude}")
 
         print("__________________________")
         print(f"Total locations found: {count}")

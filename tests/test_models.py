@@ -5,7 +5,14 @@ from __future__ import annotations
 from aresponses import ResponsesMockServer
 from syrupy.assertion import SnapshotAssertion
 
-from eindhoven import ODPEindhoven, ParkingCollection, ParkingSpot, ParkingType
+from eindhoven import (
+    Geometry,
+    ODPEindhoven,
+    ParkingCollection,
+    ParkingData,
+    ParkingSpot,
+    ParkingType,
+)
 
 from . import load_fixtures
 
@@ -32,8 +39,8 @@ async def test_parking_model(
     assert locations == snapshot
 
     # Test the first location geometry properties
-    assert locations[0].geometry["coordinates"][1] == snapshot
-    assert locations[0].geometry["coordinates"][0] == snapshot
+    assert locations[0].geometry.latitude == snapshot
+    assert locations[0].geometry.longitude == snapshot
 
 
 async def test_permit_parking_type(
@@ -163,7 +170,12 @@ def test_source_record_mashumaro_round_trip() -> None:
     assert isinstance(spot, ParkingSpot)
     assert spot.spot_id == "42"
     assert spot.source_attributes == source
-    assert spot.geometry == source["geo_shape"]["geometry"]
+    assert isinstance(spot.geometry, Geometry)
+    assert isinstance(spot.data, ParkingData)
+    assert spot.geometry.to_dict() == source["geo_shape"]["geometry"]
+    assert spot.data.street is None
+    assert spot.data.number is None
+    assert spot.data.parking_type == ParkingType.DISABLED_PARKING.value
     assert ParkingSpot.from_json(spot.to_json()) == spot
     assert ParkingSpot.from_dict(spot.to_dict()) == spot
     assert spot.to_dict()["source_attributes"]["straat"] is None
@@ -176,6 +188,11 @@ def test_collection_mashumaro_round_trip() -> None:
             {
                 "spot_id": "42",
                 "source_attributes": {"objectid": 42, "aantal": None},
+                "data": {
+                    "type_en_merk": ParkingType.DISABLED_PARKING.value,
+                    "straat": None,
+                    "aantal": None,
+                },
                 "geometry": {"type": "Point", "coordinates": [5.4, 51.4]},
             }
         ],
@@ -196,3 +213,37 @@ def test_empty_collection_mashumaro_round_trip() -> None:
     assert ParkingCollection.from_json(collection.to_json()) == collection
     assert collection.to_dict()["source_version"] is None
     assert collection.to_dict()["records"] == []
+
+
+def test_typed_data_preserves_fractional_number_and_geometry_extensions() -> None:
+    """Typed views retain fractional claims while raw geometry keeps extra fields."""
+    source = {
+        "objectid": 7,
+        "type_en_merk": ParkingType.DISABLED_PARKING.value,
+        "straat": "Example street",
+        "aantal": 1.5,
+        "geo_shape": {
+            "geometry": {"type": "Point", "coordinates": [5.4, 51.4], "extra": "raw"},
+        },
+    }
+    spot = ODPEindhoven._parking_spot(source, ParkingType.DISABLED_PARKING)
+    assert spot.data.number == 1.5
+    assert spot.data.street == "Example street"
+    assert spot.geometry.coordinates == [5.4, 51.4]
+    assert spot.geometry.type == "Point"
+    assert spot.geometry.latitude == 51.4
+    assert spot.geometry.longitude == 5.4
+    assert spot.source_attributes["geo_shape"]["geometry"]["extra"] == "raw"
+    restored = ParkingSpot.from_json(spot.to_json())
+    assert restored.data.number == 1.5
+    assert restored.source_attributes == source
+
+
+def test_typed_data_preserves_zero() -> None:
+    """Zero remains a real source value while absent source fields remain unknown."""
+    data = ParkingData.from_dict(
+        {"type_en_merk": "Parkeerplaats", "straat": None, "aantal": 0}
+    )
+    assert data.number == 0
+    assert data.street is None
+    assert ParkingData.from_json(data.to_json()) == data
