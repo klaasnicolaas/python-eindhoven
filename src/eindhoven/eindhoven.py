@@ -26,6 +26,10 @@ from .models import (
 )
 
 VERSION: str = metadata.version("eindhoven")
+HEADERS = {
+    "Accept": "application/json",
+    "User-Agent": f"PythonEindhoven/{VERSION}",
+}
 
 
 @dataclass
@@ -55,10 +59,7 @@ class ODPEindhoven:
                     METH_GET,
                     url,
                     params=params,
-                    headers={
-                        "Accept": "application/json",
-                        "User-Agent": f"PythonEindhoven/{VERSION}",
-                    },
+                    headers=HEADERS,
                     ssl=True,
                 )
                 response.raise_for_status()
