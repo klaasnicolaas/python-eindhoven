@@ -6,14 +6,22 @@ from .exceptions import (
     ODPEindhovenError,
     ODPEindhovenResultsError,
 )
-from .models import BaseResponse, ParkingSpot, ParkingType
+from .models import (
+    Geometry,
+    ParkingCollection,
+    ParkingData,
+    ParkingSpot,
+    ParkingType,
+)
 
 __all__ = [
-    "BaseResponse",
+    "Geometry",
     "ODPEindhoven",
     "ODPEindhovenConnectionError",
     "ODPEindhovenError",
     "ODPEindhovenResultsError",
+    "ParkingCollection",
+    "ParkingData",
     "ParkingSpot",
     "ParkingType",
 ]

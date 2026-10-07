@@ -20,7 +20,7 @@ async def test_json_request(
     """Test JSON response is handled correctly."""
     aresponses.add(
         "data.eindhoven.nl",
-        "/api/records/1.0/test",
+        "/api/explore/v2.1/catalog/datasets/parkeerplaatsen/test",
         "GET",
         aresponses.Response(
             status=200,
@@ -28,7 +28,7 @@ async def test_json_request(
             text=load_fixtures("1_parkings.json"),
         ),
     )
-    response = await odp_eindhoven_client._request("test")
+    response = await odp_eindhoven_client._request("/test")
     assert response is not None
     await odp_eindhoven_client.close()
 
@@ -37,7 +37,7 @@ async def test_internal_session(aresponses: ResponsesMockServer) -> None:
     """Test internal session is handled correctly."""
     aresponses.add(
         "data.eindhoven.nl",
-        "/api/records/1.0/test",
+        "/api/explore/v2.1/catalog/datasets/parkeerplaatsen/test",
         "GET",
         aresponses.Response(
             status=200,
@@ -46,7 +46,7 @@ async def test_internal_session(aresponses: ResponsesMockServer) -> None:
         ),
     )
     async with ODPEindhoven() as client:
-        await client._request("test")
+        await client._request("/test")
 
 
 async def test_timeout(aresponses: ResponsesMockServer) -> None:
@@ -60,12 +60,17 @@ async def test_timeout(aresponses: ResponsesMockServer) -> None:
             text=load_fixtures("parking.json"),
         )
 
-    aresponses.add("data.eindhoven.nl", "/api/records/1.0/test", "GET", reponse_handler)
+    aresponses.add(
+        "data.eindhoven.nl",
+        "/api/explore/v2.1/catalog/datasets/parkeerplaatsen/test",
+        "GET",
+        reponse_handler,
+    )
 
     async with ClientSession() as session:
         client = ODPEindhoven(session=session, request_timeout=0.1)
         with pytest.raises(ODPEindhovenConnectionError):
-            assert await client._request("test")
+            assert await client._request("/test")
 
 
 async def test_content_type(
@@ -75,7 +80,7 @@ async def test_content_type(
     """Test request content type error is handled correctly."""
     aresponses.add(
         "data.eindhoven.nl",
-        "/api/records/1.0/test",
+        "/api/explore/v2.1/catalog/datasets/parkeerplaatsen/test",
         "GET",
         aresponses.Response(
             status=200,
@@ -83,7 +88,7 @@ async def test_content_type(
         ),
     )
     with pytest.raises(ODPEindhovenError):
-        assert await odp_eindhoven_client._request("test")
+        assert await odp_eindhoven_client._request("/test")
 
 
 async def test_client_error() -> None:
@@ -98,4 +103,4 @@ async def test_client_error() -> None:
             ),
             pytest.raises(ODPEindhovenConnectionError),
         ):
-            assert await client._request("test")
+            assert await client._request("/test")

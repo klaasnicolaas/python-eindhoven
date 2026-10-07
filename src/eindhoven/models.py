@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime
 from enum import StrEnum
+from typing import Any
 
 from mashumaro import field_options
 from mashumaro.config import BaseConfig
@@ -22,72 +22,54 @@ class ParkingType(StrEnum):
     ELECTRIC_CHARGING_PARKING = "Parkeerplaats Electrisch opladen"
 
 
-@dataclass
-class BaseResponse[ResultDataT](DataClassORJSONMixin):
-    """Base response object for the API."""
+@dataclass(slots=True)
+class ParkingData(DataClassORJSONMixin):
+    """Typed original parking fields without inventing unknown source values."""
 
     class Config(BaseConfig):
-        """Configuration for mashumaro."""
+        """Use the original ODSv2 field names in serialized data."""
 
         serialize_by_alias = True
 
-    hits: int = field(metadata=field_options(alias="nhits"))
-    records: ResultDataT = field(metadata=field_options(alias="records"))
-
-
-@dataclass(slots=True)
-class ParkingSpot(DataClassORJSONMixin):
-    """Object representing a parking spot."""
-
-    spot_id: str = field(metadata=field_options(alias="recordid"))
-    data: ParkingData = field(metadata=field_options(alias="fields"))
-    geometry: Geometry = field(metadata=field_options(alias="geometry"))
-    updated_at: datetime = field(
-        metadata=field_options(
-            alias="record_timestamp",
-            deserialize=datetime.fromisoformat,
-        )
-    )
-
-
-@dataclass(slots=True)
-class ParkingData(DataClassORJSONMixin):
-    """Object representing the data fields of a parking spot."""
-
     parking_type: str = field(metadata=field_options(alias="type_en_merk"))
-    street: str = field(metadata=field_options(alias="straat"))
-    number: int = field(metadata=field_options(alias="aantal"))
+    street: str | None = field(metadata=field_options(alias="straat"))
+    number: int | float | None = field(metadata=field_options(alias="aantal"))
 
 
 @dataclass(slots=True)
 class Geometry(DataClassORJSONMixin):
-    """Object representing the geometry of a parking spot."""
+    """Typed WGS84 Point with convenient latitude and longitude access."""
 
-    coordinates: list[float] = field(metadata=field_options(alias="coordinates"))
+    coordinates: list[float]
+    type: str = "Point"
 
     @property
     def latitude(self) -> float:
-        """Return the latitude of the parking spot.
-
-        Returns
-        -------
-            The latitude of the parking spot.
-
-        """
+        """Return the Point latitude."""
         return self.coordinates[1]
 
     @property
     def longitude(self) -> float:
-        """Return the longitude of the parking spot.
-
-        Returns
-        -------
-            The longitude of the parking spot.
-
-        """
+        """Return the Point longitude."""
         return self.coordinates[0]
 
 
 @dataclass(slots=True)
-class ParkingResponse(BaseResponse[list[ParkingSpot]]):
-    """Response object for the parking spots API."""
+class ParkingSpot(DataClassORJSONMixin):
+    """Original source record without consumer-specific parking interpretation."""
+
+    spot_id: str
+    source_attributes: dict[str, Any]
+    geometry: Geometry
+    data: ParkingData
+
+
+@dataclass(slots=True)
+class ParkingCollection(DataClassORJSONMixin):
+    """Complete selection from one unchanged observed source version."""
+
+    records: list[ParkingSpot]
+    total_count: int
+    pages_fetched: int
+    source_version: str | None
+    complete: bool = True

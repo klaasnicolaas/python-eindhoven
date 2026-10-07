@@ -21,7 +21,7 @@ async def test_no_parking_results(
     """Test if there are no parking results."""
     aresponses.add(
         "data.eindhoven.nl",
-        "/api/records/1.0/search/",
+        "/api/explore/v2.1/catalog/datasets/parkeerplaatsen/records",
         "GET",
         aresponses.Response(
             status=200,
