@@ -26,8 +26,6 @@ from .models import (
 )
 
 VERSION: str = metadata.version("eindhoven")
-MAX_RESPONSE_BYTES = 2 * 1024 * 1024
-RESPONSE_CHUNK_SIZE = 64 * 1024
 HEADERS = {
     "Accept": "application/json",
     "User-Agent": f"PythonEindhoven/{VERSION}",
@@ -46,7 +44,7 @@ class ODPEindhoven:
     async def _request(
         self, path: str = "", *, params: dict[str, Any] | None = None
     ) -> dict[str, Any]:
-        """Read a bounded ODSv2 dataset response within the request deadline."""
+        """Read an ODSv2 dataset response within the request deadline."""
         url = URL.build(
             scheme="https",
             host="data.eindhoven.nl",
@@ -65,12 +63,7 @@ class ODPEindhoven:
                     ssl=True,
                 )
                 response.raise_for_status()
-                body = bytearray()
-                async for chunk in response.content.iter_chunked(RESPONSE_CHUNK_SIZE):
-                    body.extend(chunk)
-                    if len(body) > MAX_RESPONSE_BYTES:
-                        msg = "Eindhoven response exceeds the size limit"
-                        raise ODPEindhovenResultsError(msg)
+                body = await response.read()
         except TimeoutError as exception:
             msg = "Timeout occurred while connecting to the Open Data Platform API."
             raise ODPEindhovenConnectionError(msg) from exception

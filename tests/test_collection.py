@@ -234,8 +234,10 @@ async def test_invalid_collection_json(
             await client.parking_collection()
 
 
-async def test_bounded_response(aresponses: ResponsesMockServer) -> None:
-    """Reject overlarge collection bodies before parsing them."""
+async def test_response_above_former_size_limit(
+    aresponses: ResponsesMockServer,
+) -> None:
+    """Accept valid source JSON above the former consumer-specific size limit."""
     aresponses.add(
         "data.eindhoven.nl",
         "/api/explore/v2.1/catalog/datasets/parkeerplaatsen",
@@ -243,16 +245,16 @@ async def test_bounded_response(aresponses: ResponsesMockServer) -> None:
         aresponses.Response(
             status=200,
             headers={"Content-Type": "application/json"},
-            text="x" * (2 * 1024 * 1024 + 1),
+            text=orjson.dumps({"padding": "x" * (2 * 1024 * 1024 + 1)}).decode(),
         ),
     )
     async with ODPEindhoven() as client:
-        with pytest.raises(ODPEindhovenResultsError, match="size limit"):
-            await client.parking_collection()
+        response = await client._request()
+        assert response["padding"] == "x" * (2 * 1024 * 1024 + 1)
 
 
-async def test_bounded_json_response(aresponses: ResponsesMockServer) -> None:
-    """Read a bounded metadata response through the public transport."""
+async def test_metadata_json_response(aresponses: ResponsesMockServer) -> None:
+    """Read a metadata response through the public transport."""
     aresponses.add(
         "data.eindhoven.nl",
         "/api/explore/v2.1/catalog/datasets/parkeerplaatsen",
