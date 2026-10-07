@@ -26,6 +26,8 @@ from .models import (
 )
 
 VERSION: str = metadata.version("eindhoven")
+MAX_RESPONSE_BYTES = 2 * 1024 * 1024
+RESPONSE_CHUNK_SIZE = 64 * 1024
 HEADERS = {
     "Accept": "application/json",
     "User-Agent": f"PythonEindhoven/{VERSION}",
@@ -64,9 +66,9 @@ class ODPEindhoven:
                 )
                 response.raise_for_status()
                 body = bytearray()
-                async for chunk in response.content.iter_chunked(65536):
+                async for chunk in response.content.iter_chunked(RESPONSE_CHUNK_SIZE):
                     body.extend(chunk)
-                    if len(body) > 2 * 1024 * 1024:
+                    if len(body) > MAX_RESPONSE_BYTES:
                         msg = "Eindhoven response exceeds the size limit"
                         raise ODPEindhovenResultsError(msg)
         except TimeoutError as exception:
