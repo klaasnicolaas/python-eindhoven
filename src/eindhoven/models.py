@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import Any
 
+from mashumaro.mixins.orjson import DataClassORJSONMixin
+
 
 class ParkingType(StrEnum):
     """Enum representing the parking types."""
@@ -19,7 +21,7 @@ class ParkingType(StrEnum):
 
 
 @dataclass(slots=True)
-class ParkingSpot:
+class ParkingSpot(DataClassORJSONMixin):
     """Original source record without consumer-specific parking interpretation."""
 
     spot_id: str
@@ -28,7 +30,7 @@ class ParkingSpot:
 
 
 @dataclass(slots=True)
-class ParkingCollection:
+class ParkingCollection(DataClassORJSONMixin):
     """Complete selection from one unchanged observed source version."""
 
     records: list[ParkingSpot]

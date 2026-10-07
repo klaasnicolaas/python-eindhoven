@@ -235,7 +235,13 @@ class ODPEindhoven:
             ):
                 msg = "Invalid Eindhoven WGS84 coordinate"
                 raise ODPEindhovenResultsError(msg)
-        return ParkingSpot(str(object_id), item.copy(), geometry.copy())
+        return ParkingSpot.from_dict(
+            {
+                "spot_id": str(object_id),
+                "source_attributes": item.copy(),
+                "geometry": geometry.copy(),
+            }
+        )
 
     async def close(self) -> None:
         """Close open client session."""

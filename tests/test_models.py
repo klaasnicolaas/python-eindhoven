@@ -2,17 +2,12 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from aresponses import ResponsesMockServer
 from syrupy.assertion import SnapshotAssertion
 
-from eindhoven import ParkingType
+from eindhoven import ODPEindhoven, ParkingCollection, ParkingSpot, ParkingType
 
 from . import load_fixtures
-
-if TYPE_CHECKING:
-    from eindhoven import ODPEindhoven, ParkingSpot
 
 
 async def test_parking_model(
@@ -149,3 +144,55 @@ async def test_charging_parking_type(
         parking_type=ParkingType.ELECTRIC_CHARGING_PARKING
     )
     assert locations == snapshot
+
+
+def test_source_record_mashumaro_round_trip() -> None:
+    """Parse validated raw v2 fields and preserve them through typed serialization."""
+    source = {
+        "objectid": 42,
+        "type_en_merk": ParkingType.DISABLED_PARKING.value,
+        "straat": None,
+        "aantal": None,
+        "extra": {"nested": [None, "unchanged", 7]},
+        "geo_shape": {
+            "type": "Feature",
+            "geometry": {"type": "Point", "coordinates": [5.4, 51.4]},
+        },
+    }
+    spot = ODPEindhoven._parking_spot(source, ParkingType.DISABLED_PARKING)
+    assert isinstance(spot, ParkingSpot)
+    assert spot.spot_id == "42"
+    assert spot.source_attributes == source
+    assert spot.geometry == source["geo_shape"]["geometry"]
+    assert ParkingSpot.from_json(spot.to_json()) == spot
+    assert ParkingSpot.from_dict(spot.to_dict()) == spot
+    assert spot.to_dict()["source_attributes"]["straat"] is None
+
+
+def test_collection_mashumaro_round_trip() -> None:
+    """Deserialize nested records as ParkingSpot while retaining the common envelope."""
+    payload = {
+        "records": [
+            {
+                "spot_id": "42",
+                "source_attributes": {"objectid": 42, "aantal": None},
+                "geometry": {"type": "Point", "coordinates": [5.4, 51.4]},
+            }
+        ],
+        "total_count": 1,
+        "pages_fetched": 1,
+        "source_version": "opaque-revision",
+        "complete": True,
+    }
+    collection = ParkingCollection.from_dict(payload)
+    assert isinstance(collection.records[0], ParkingSpot)
+    assert collection.to_dict() == payload
+    assert ParkingCollection.from_json(collection.to_json()) == collection
+
+
+def test_empty_collection_mashumaro_round_trip() -> None:
+    """Serialize empty collections and unknown revision tokens without defaults."""
+    collection = ParkingCollection([], 0, 1, None)
+    assert ParkingCollection.from_json(collection.to_json()) == collection
+    assert collection.to_dict()["source_version"] is None
+    assert collection.to_dict()["records"] == []

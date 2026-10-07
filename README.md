@@ -55,7 +55,7 @@ You can use the following parameters in your request:
 | Parkeerplaats laden/lossen       | LOADING_UNLOADING_PARKING |
 | Parkeerplaats Electrisch opladen | ELECTRIC_CHARGING_PARKING |
 
-Both `locations()` and `parking_collection()` return the same `ParkingSpot` model from the ODSv2.1 endpoint.
+Both `locations()` and `parking_collection()` return the same `ParkingSpot` model from the ODSv2.1 endpoint. The client validates source IDs, categories and coordinates before mapping the source row through Mashumaro `ParkingSpot.from_dict()`. `ParkingSpot` and `ParkingCollection` support typed `from_dict()` / `from_json()` and `to_dict()` / `to_json()` round trips, including nested records and explicit null values.
 
 | Attribute | Type | Description |
 | :-------- | :--- | :---------- |
