@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import StrEnum
+from typing import Any
 
 from mashumaro import field_options
 from mashumaro.config import BaseConfig
@@ -91,3 +92,23 @@ class Geometry(DataClassORJSONMixin):
 @dataclass(slots=True)
 class ParkingResponse(BaseResponse[list[ParkingSpot]]):
     """Response object for the parking spots API."""
+
+
+@dataclass(slots=True)
+class ParkingSnapshotRecord:
+    """Original source record without consumer-specific parking interpretation."""
+
+    spot_id: str
+    source_attributes: dict[str, Any]
+    geometry: dict[str, Any]
+
+
+@dataclass(slots=True)
+class ParkingSnapshot:
+    """Complete selection from one unchanged observed source version."""
+
+    records: list[ParkingSnapshotRecord]
+    total_count: int
+    pages_fetched: int
+    source_version: str | None
+    complete: bool = True
