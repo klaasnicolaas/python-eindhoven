@@ -55,34 +55,14 @@ You can use the following parameters in your request:
 | Parkeerplaats laden/lossen       | LOADING_UNLOADING_PARKING |
 | Parkeerplaats Electrisch opladen | ELECTRIC_CHARGING_PARKING |
 
-You get the following output data back with this dataset:
+Both `locations()` and `parking_collection()` return the same `ParkingSpot` model from the ODSv2.1 endpoint.
 
-| Attribute    | Type        | Description                                       |
-| :----------- | :---------- | :------------------------------------------------ |
-| `spot_id`    | string      | The id of the parking spot                        |
-| `data`       | ParkingData | The parking data of the parking spot              |
-| `geometry`   | Geometry    | The geometry of the parking spot                  |
-| `updated_at` | datetime    | When this parking spot was updated in the dataset |
+| Attribute | Type | Description |
+| :-------- | :--- | :---------- |
+| `spot_id` | string | Original positive integer `objectid` as a decimal string |
+| `source_attributes` | dict | All original ODSv2 fields, including null values |
+| `geometry` | dict | Original WGS84 GeoJSON Point; coordinates are longitude, latitude |
 
-#### ParkingData
-
-The parking data of the parking spot.
-
-| Attribute      | Type     | Description                                        |
-| :------------- | :------- | :------------------------------------------------- |
-| `parking_type` | string   | The type of parking of the parking spot            |
-| `street`       | string   | The street name where this parking spot is located |
-| `number`       | int      | The number of parkings spots on this location      |
-
-#### Geometry
-
-The geometry of the parking spot is a GeoJSON object. The coordinates are in the WGS84 coordinate system.
-
-| Attribute     | Type  | Description                         |
-| :------------ | :---- | :---------------------------------- |
-| `coordinates` | list  | The coordinates of the parking spot |
-| `longitude`   | float | The longitude of the parking spot   |
-| `latitude`    | float | The latitude of the parking spot    |
 </details>
 
 ### Example
@@ -109,7 +89,7 @@ if __name__ == "__main__":
 
 ## Complete collection contract
 
-Use `await client.parking_collection(parking_type=ParkingType.DISABLED_PARKING, max_records=9900)` for a complete selection. The existing `locations(limit=..., parking_type=...)` remains a limited convenience API.
+Use `await client.parking_collection(parking_type=ParkingType.DISABLED_PARKING, max_records=9900)` for a complete selection. `locations(limit=..., parking_type=...)` is a limited convenience API using the same endpoint and record parser. It only fetches the requested prefix and does not assert a full, version-checked collection.
 
 All parking collection clients share this envelope:
 
@@ -121,9 +101,19 @@ All parking collection clients share this envelope:
 | `source_version` | Opaque source revision token, or `None` where unavailable; never a record modification date |
 | `complete` | Always `True` on success; failures raise an exception rather than returning a partial collection |
 
-Eindhoven returns `ParkingCollectionRecord` with `spot_id` (original positive integer `objectid` rendered as a decimal string), `source_attributes` (all original ODSv2 fields, including null values), and `geometry` (original WGS84 GeoJSON Point). Consumer-specific mapping, access decisions, and publication remain outside this package.
+Eindhoven returns `ParkingSpot` with `spot_id` (original positive integer `objectid` rendered as a decimal string), `source_attributes` (all original ODSv2 fields, including null values), and `geometry` (original WGS84 GeoJSON Point). Consumer-specific mapping, access decisions, and publication remain outside this package.
 
 The client requests pages of 100 ordered by `objectid`, validates totals, page lengths and unique IDs, and compares the portal's `data_processed` token before and after collection. Empty selections return a complete empty collection. The default safety bound is 9900 records and may be lowered; exceeding it raises `ODPEindhovenResultsError`. The revision comparison is an observation of portal metadata, not a transaction guarantee by the provider.
+
+## Migration to ODSv2.1
+
+This release changes the source endpoint and `ParkingSpot` shape. All requests now use `/api/explore/v2.1/catalog/datasets/parkeerplaatsen`; the ODSv1 path and response models are removed.
+
+- Replace hashed ODSv1 `recordid` identities with the original `objectid` exposed as `spot_id`. Do not treat these different IDs as equivalent.
+- Replace `spot.data.street` and `spot.data.number` with `spot.source_attributes["straat"]` and `spot.source_attributes["aantal"]`; explicit nulls remain unknown.
+- Replace `spot.geometry.latitude` / `.longitude` with `spot.geometry["coordinates"][1]` / `[0]`.
+- `updated_at`, `BaseResponse`, `ParkingResponse` and `ParkingData` are removed. ODSv2 does not provide the old per-record portal timestamp; `source_version` is an observed dataset revision token and must not be substituted for a record modification date.
+- `locations()` retains its limited-list behavior and no-results exception. For a confirmed empty or complete selection, use `parking_collection()`.
 
 ## Use cases
 

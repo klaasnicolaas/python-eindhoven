@@ -21,8 +21,6 @@ from .exceptions import (
 )
 from .models import (
     ParkingCollection,
-    ParkingCollectionRecord,
-    ParkingResponse,
     ParkingSpot,
     ParkingType,
 )
@@ -40,125 +38,117 @@ class ODPEindhoven:
     _close_session: bool = False
 
     async def _request(
-        self,
-        uri: str,
-        *,
-        method: str = METH_GET,
-        params: dict[str, Any] | None = None,
-        max_response_bytes: int | None = None,
-    ) -> Any:
-        """Handle a request to the Open Data Platform API of Eindhoven.
-
-        Args:
-        ----
-            uri: Request URI, without '/', for example, 'status'
-            method: HTTP method to use, for example, 'GET'
-            params: Extra options to improve or limit the response.
-
-        Returns:
-        -------
-            A Python dictionary (json) with the response from
-            the Open Data Platform API of Eindhoven.
-
-        Raises:
-        ------
-            ODPEindhovenConnectionError: An error occurred while
-                communicating with the Open Data Platform API
-            ODPEindhovenError: Received an unexpected response from
-                the Open Data Platform API.
-
-        """
+        self, path: str = "", *, params: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
+        """Read a bounded ODSv2 dataset response within the request deadline."""
         url = URL.build(
             scheme="https",
             host="data.eindhoven.nl",
-            path="/api/records/1.0/",
-        ).join(URL(uri))
-
-        headers = {
-            "Accept": "application/json, text/plain",
-            "User-Agent": f"PythonEindhoven/{VERSION}",
-        }
-
+            path="/api/explore/v2.1/catalog/datasets/parkeerplaatsen" + path,
+        )
         if self.session is None:
             self.session = ClientSession()
             self._close_session = True
-
         try:
             async with asyncio.timeout(self.request_timeout):
                 response = await self.session.request(
-                    method,
+                    METH_GET,
                     url,
                     params=params,
-                    headers=headers,
+                    headers={
+                        "Accept": "application/json",
+                        "User-Agent": f"PythonEindhoven/{VERSION}",
+                    },
                     ssl=True,
                 )
                 response.raise_for_status()
-                if max_response_bytes is not None:
-                    body = bytearray()
-                    async for chunk in response.content.iter_chunked(65536):
-                        body.extend(chunk)
-                        if len(body) > max_response_bytes:
-                            msg = "Eindhoven response exceeds the size limit"
-                            raise ODPEindhovenResultsError(msg)
-                    bounded_text = body.decode("utf-8")
+                body = bytearray()
+                async for chunk in response.content.iter_chunked(65536):
+                    body.extend(chunk)
+                    if len(body) > 2 * 1024 * 1024:
+                        msg = "Eindhoven response exceeds the size limit"
+                        raise ODPEindhovenResultsError(msg)
         except TimeoutError as exception:
             msg = "Timeout occurred while connecting to the Open Data Platform API."
             raise ODPEindhovenConnectionError(msg) from exception
         except (ClientError, socket.gaierror) as exception:
             msg = "Error occurred while communicating with the Open Data Platform API."
             raise ODPEindhovenConnectionError(msg) from exception
-
         content_type = response.headers.get("Content-Type", "")
-        text = bounded_text if max_response_bytes is not None else await response.text()
         if "application/json" not in content_type:
-            text = await response.text()
             msg = "Unexpected content type response from the Open Data Platform API."
-            raise ODPEindhovenError(
-                msg,
-                {"Content-Type": content_type, "response": text},
-            )
-
-        return text
+            raise ODPEindhovenError(msg, {"Content-Type": content_type})
+        try:
+            result = orjson.loads(body)
+        except orjson.JSONDecodeError as exception:
+            msg = "Invalid Eindhoven collection JSON"
+            raise ODPEindhovenResultsError(msg) from exception
+        if not isinstance(result, dict):
+            msg = "Expected an Eindhoven response object"
+            raise ODPEindhovenResultsError(msg)
+        return result
 
     async def locations(
         self,
         limit: int = 10,
         parking_type: ParkingType = ParkingType.PARKING,
     ) -> list[ParkingSpot]:
-        """Get all the parking locations.
-
-        Args:
-        ----
-            limit (int): Number of rows to return.
-            parking_type (enum): The selected parking type.
-
-        Returns:
-        -------
-            A list of ParkingSpot objects.
-
-        Raises:
-        ------
-            ODPEindhovenResultsError: When no results are found.
-
-        """
-        response = await self._request(
-            "search/",
-            params={
-                "dataset": "parkeerplaatsen",
-                "rows": limit,
-                "refine.type_en_merk": parking_type.value,
-            },
-        )
-        results = ParkingResponse.from_json(response).records
-
-        if not results:
+        """Return up to limit original ODSv2 records without claiming completeness."""
+        if (
+            isinstance(limit, bool)
+            or not isinstance(limit, int)
+            or not 0 < limit <= 9900
+        ):
+            msg = "limit must be between 1 and 9900"
+            raise ValueError(msg)
+        records: list[ParkingSpot] = []
+        total: int | None = None
+        ids: set[str] = set()
+        while total is None or len(records) < min(limit, total):
+            count, batch = await self._records_page(
+                parking_type, len(records), min(100, limit - len(records))
+            )
+            if total is not None and count != total:
+                msg = "Changing Eindhoven source count"
+                raise ODPEindhovenResultsError(msg)
+            total = count
+            for record in batch:
+                if record.spot_id in ids:
+                    msg = "Eindhoven returned duplicate source IDs"
+                    raise ODPEindhovenResultsError(msg)
+                ids.add(record.spot_id)
+                records.append(record)
+        if not records:
             msg = "No parking locations were found"
             raise ODPEindhovenResultsError(msg)
-        return results
+        return records
+
+    async def _records_page(
+        self, parking_type: ParkingType, offset: int, limit: int
+    ) -> tuple[int, list[ParkingSpot]]:
+        """Parse the same ordered ODSv2 record page for both public methods."""
+        page = await self._request(
+            "/records",
+            params={
+                "where": f"type_en_merk='{parking_type.value}'",
+                "order_by": "objectid asc",
+                "limit": limit,
+                "offset": offset,
+            },
+        )
+        count = page.get("total_count")
+        if isinstance(count, bool) or not isinstance(count, int) or count < offset:
+            msg = "Invalid Eindhoven source count"
+            raise ODPEindhovenResultsError(msg)
+        batch = page.get("results")
+        if not isinstance(batch, list) or len(batch) != min(limit, count - offset):
+            msg = "Eindhoven returned an incomplete page"
+            raise ODPEindhovenResultsError(msg)
+        return count, [self._parking_spot(item, parking_type) for item in batch]
 
     async def dataset_version(self) -> str:
         """Return the portal's opaque data_processed token."""
-        metadata_response = await self._collection_request()
+        metadata_response = await self._request()
         try:
             version = metadata_response["metas"]["default"]["data_processed"]
         except (KeyError, TypeError) as exception:
@@ -168,25 +158,6 @@ class ODPEindhoven:
             msg = "Eindhoven portal version is missing"
             raise ODPEindhovenResultsError(msg)
         return version
-
-    async def _collection_request(
-        self, path: str = "", params: dict[str, Any] | None = None
-    ) -> dict[str, Any]:
-        """Read an ODSv2 dataset response through the existing transport."""
-        response = await self._request(
-            "/api/explore/v2.1/catalog/datasets/parkeerplaatsen" + path,
-            params=params,
-            max_response_bytes=2 * 1024 * 1024,
-        )
-        try:
-            result = orjson.loads(response)
-        except orjson.JSONDecodeError as exception:
-            msg = "Invalid Eindhoven collection JSON"
-            raise ODPEindhovenResultsError(msg) from exception
-        if not isinstance(result, dict):
-            msg = "Expected an Eindhoven response object"
-            raise ODPEindhovenResultsError(msg)
-        return result
 
     async def parking_collection(
         self,
@@ -203,38 +174,17 @@ class ODPEindhoven:
             msg = "max_records must be between 1 and 9900"
             raise ValueError(msg)
         version = await self.dataset_version()
-        records: list[ParkingCollectionRecord] = []
+        records: list[ParkingSpot] = []
         ids: set[str] = set()
         total: int | None = None
         pages = 0
         while total is None or len(records) < total:
-            page = await self._collection_request(
-                "/records",
-                {
-                    "where": f"type_en_merk='{parking_type.value}'",
-                    "order_by": "objectid asc",
-                    "limit": 100,
-                    "offset": len(records),
-                },
-            )
-            count = page.get("total_count")
-            if (
-                isinstance(count, bool)
-                or not isinstance(count, int)
-                or not 0 <= count <= max_records
-                or (total is not None and count != total)
-            ):
+            count, batch = await self._records_page(parking_type, len(records), 100)
+            if count > max_records or (total is not None and count != total):
                 msg = "Invalid or changing Eindhoven source count"
                 raise ODPEindhovenResultsError(msg)
             total = count
-            batch = page.get("results")
-            if not isinstance(batch, list) or len(batch) != min(
-                100, total - len(records)
-            ):
-                msg = "Eindhoven returned an incomplete page"
-                raise ODPEindhovenResultsError(msg)
-            for item in batch:
-                record = self._collection_record(item, parking_type)
+            for record in batch:
                 if record.spot_id in ids:
                     msg = "Eindhoven returned duplicate source IDs"
                     raise ODPEindhovenResultsError(msg)
@@ -247,9 +197,7 @@ class ODPEindhoven:
         return ParkingCollection(records, total, pages, version)
 
     @staticmethod
-    def _collection_record(
-        item: Any, parking_type: ParkingType
-    ) -> ParkingCollectionRecord:
+    def _parking_spot(item: Any, parking_type: ParkingType) -> ParkingSpot:
         """Preserve raw fields and the source's WGS84 Point and objectid."""
         if not isinstance(item, dict):
             msg = "Expected an Eindhoven source record object"
@@ -287,7 +235,7 @@ class ODPEindhoven:
             ):
                 msg = "Invalid Eindhoven WGS84 coordinate"
                 raise ODPEindhovenResultsError(msg)
-        return ParkingCollectionRecord(str(object_id), item.copy(), geometry.copy())
+        return ParkingSpot(str(object_id), item.copy(), geometry.copy())
 
     async def close(self) -> None:
         """Close open client session."""

@@ -23,7 +23,7 @@ async def test_parking_model(
     """Test the parking model type (1)."""
     aresponses.add(
         "data.eindhoven.nl",
-        "/api/records/1.0/search/",
+        "/api/explore/v2.1/catalog/datasets/parkeerplaatsen/records",
         "GET",
         aresponses.Response(
             status=200,
@@ -37,8 +37,8 @@ async def test_parking_model(
     assert locations == snapshot
 
     # Test the first location geometry properties
-    assert locations[0].geometry.latitude == snapshot
-    assert locations[0].geometry.longitude == snapshot
+    assert locations[0].geometry["coordinates"][1] == snapshot
+    assert locations[0].geometry["coordinates"][0] == snapshot
 
 
 async def test_permit_parking_type(
@@ -49,7 +49,7 @@ async def test_permit_parking_type(
     """Test the permit parking type (2)."""
     aresponses.add(
         "data.eindhoven.nl",
-        "/api/records/1.0/search/",
+        "/api/explore/v2.1/catalog/datasets/parkeerplaatsen/records",
         "GET",
         aresponses.Response(
             status=200,
@@ -71,7 +71,7 @@ async def test_disabled_parking_type(
     """Test the disabled parking type (3)."""
     aresponses.add(
         "data.eindhoven.nl",
-        "/api/records/1.0/search/",
+        "/api/explore/v2.1/catalog/datasets/parkeerplaatsen/records",
         "GET",
         aresponses.Response(
             status=200,
@@ -93,7 +93,7 @@ async def test_crossed_out_parking_type(
     """Test the crossed out parking type (4)."""
     aresponses.add(
         "data.eindhoven.nl",
-        "/api/records/1.0/search/",
+        "/api/explore/v2.1/catalog/datasets/parkeerplaatsen/records",
         "GET",
         aresponses.Response(
             status=200,
@@ -115,7 +115,7 @@ async def test_loading_parking_type(
     """Test the load in/out parking type (5)."""
     aresponses.add(
         "data.eindhoven.nl",
-        "/api/records/1.0/search/",
+        "/api/explore/v2.1/catalog/datasets/parkeerplaatsen/records",
         "GET",
         aresponses.Response(
             status=200,
@@ -137,7 +137,7 @@ async def test_charging_parking_type(
     """Test the electric charging parking type (6)."""
     aresponses.add(
         "data.eindhoven.nl",
-        "/api/records/1.0/search/",
+        "/api/explore/v2.1/catalog/datasets/parkeerplaatsen/records",
         "GET",
         aresponses.Response(
             status=200,

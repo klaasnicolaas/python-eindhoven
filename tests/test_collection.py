@@ -39,7 +39,7 @@ async def test_collection_pages() -> None:
             version(),
         ]
     )
-    with patch.object(client, "_collection_request", request):
+    with patch.object(client, "_request", request):
         collection = await client.parking_collection()
     assert collection.complete is True
     assert collection.total_count == len(collection.records) == 101
@@ -48,15 +48,15 @@ async def test_collection_pages() -> None:
     assert collection.records[0].spot_id == "1"
     assert collection.records[0].source_attributes == first[0]
     assert collection.records[0].geometry == first[0]["geo_shape"]["geometry"]
-    assert request.call_args_list[2].args[1]["offset"] == 100
-    assert request.call_args_list[1].args[1]["order_by"] == "objectid asc"
+    assert request.call_args_list[2].kwargs["params"]["offset"] == 100
+    assert request.call_args_list[1].kwargs["params"]["order_by"] == "objectid asc"
 
 
 async def test_empty_collection() -> None:
     """A confirmed empty selection succeeds with its actual first page counted."""
     with patch.object(
         ODPEindhoven,
-        "_collection_request",
+        "_request",
         AsyncMock(
             side_effect=[
                 version(),
@@ -90,7 +90,7 @@ async def test_invalid_pages(count: Any, batch: Any) -> None:
     with (
         patch.object(
             ODPEindhoven,
-            "_collection_request",
+            "_request",
             AsyncMock(
                 side_effect=[
                     version(),
@@ -108,7 +108,7 @@ async def test_changing_count() -> None:
     with (
         patch.object(
             ODPEindhoven,
-            "_collection_request",
+            "_request",
             AsyncMock(
                 side_effect=[
                     version(),
@@ -127,7 +127,7 @@ async def test_changing_version() -> None:
     with (
         patch.object(
             ODPEindhoven,
-            "_collection_request",
+            "_request",
             AsyncMock(
                 side_effect=[
                     version(),
@@ -147,7 +147,7 @@ async def test_missing_version(metadata_response: dict[str, Any]) -> None:
     with (
         patch.object(
             ODPEindhoven,
-            "_collection_request",
+            "_request",
             AsyncMock(return_value=metadata_response),
         ),
         pytest.raises(ODPEindhovenResultsError, match="version"),
@@ -199,7 +199,7 @@ async def test_invalid_records(item: Any) -> None:
     with (
         patch.object(
             ODPEindhoven,
-            "_collection_request",
+            "_request",
             AsyncMock(
                 side_effect=[
                     version(),
@@ -213,25 +213,21 @@ async def test_invalid_records(item: Any) -> None:
 
 
 @pytest.mark.parametrize("body", ["invalid json", "[]"])
-async def test_invalid_collection_json(body: str) -> None:
-    """Reject invalid JSON response shapes through the collection transport."""
-    with (
-        patch.object(ODPEindhoven, "_request", AsyncMock(return_value=body)),
-        pytest.raises(ODPEindhovenResultsError),
-    ):
-        await ODPEindhoven().parking_collection()
-
-
-async def test_collection_endpoint() -> None:
-    """Use ODSv2 without changing the existing ODSv1 locations API."""
-    request = AsyncMock(return_value=orjson.dumps({"total_count": 0, "results": []}))
-    with patch.object(ODPEindhoven, "_request", request):
-        result = await ODPEindhoven()._collection_request("/records", {"limit": 100})
-    assert result["total_count"] == 0
-    assert (
-        request.call_args.args[0]
-        == "/api/explore/v2.1/catalog/datasets/parkeerplaatsen/records"
+async def test_invalid_collection_json(
+    aresponses: ResponsesMockServer, body: str
+) -> None:
+    """Reject invalid JSON response shapes through the common transport."""
+    aresponses.add(
+        "data.eindhoven.nl",
+        "/api/explore/v2.1/catalog/datasets/parkeerplaatsen",
+        "GET",
+        aresponses.Response(
+            status=200, headers={"Content-Type": "application/json"}, text=body
+        ),
     )
+    async with ODPEindhoven() as client:
+        with pytest.raises(ODPEindhovenResultsError):
+            await client.parking_collection()
 
 
 async def test_bounded_response(aresponses: ResponsesMockServer) -> None:
@@ -265,3 +261,54 @@ async def test_bounded_json_response(aresponses: ResponsesMockServer) -> None:
     )
     async with ODPEindhoven() as client:
         assert await client.dataset_version() == "opaque-version"
+
+
+@pytest.mark.parametrize("limit", [True, 0, 9901, "10"])
+async def test_locations_invalid_limit(limit: Any) -> None:
+    """Reject invalid requested prefix sizes before contacting the source."""
+    with pytest.raises(ValueError, match="limit"):
+        await ODPEindhoven().locations(limit=limit)
+
+
+async def test_locations_prefix() -> None:
+    """Fetch only the requested prefix with the shared parser and retain nulls."""
+    request = AsyncMock(
+        side_effect=[
+            {"total_count": 500, "results": [record(i) for i in range(1, 101)]},
+            {"total_count": 500, "results": [record(101)]},
+        ]
+    )
+    with patch.object(ODPEindhoven, "_request", request):
+        spots = await ODPEindhoven().locations(
+            limit=101, parking_type=ParkingType.DISABLED_PARKING
+        )
+    assert len(spots) == 101
+    assert spots[0].spot_id == "1"
+    assert spots[0].source_attributes["straat"] is None
+    assert spots[0].source_attributes["aantal"] is None
+    assert spots[0].source_attributes["extra"] == "retained"
+    assert request.call_count == 2
+    assert request.call_args_list[1].kwargs["params"]["limit"] == 1
+    assert request.call_args_list[1].kwargs["params"]["offset"] == 100
+    assert all(call.args[0] == "/records" for call in request.call_args_list)
+
+
+@pytest.mark.parametrize(("count", "last_id"), [(102, 101), (101, 1)])
+async def test_locations_changing_or_duplicate(count: int, last_id: int) -> None:
+    """Limited reads still reject changing totals and duplicate original IDs."""
+    with (
+        patch.object(
+            ODPEindhoven,
+            "_request",
+            AsyncMock(
+                side_effect=[
+                    {"total_count": 101, "results": [record(i) for i in range(1, 101)]},
+                    {"total_count": count, "results": [record(last_id)]},
+                ]
+            ),
+        ),
+        pytest.raises(ODPEindhovenResultsError),
+    ):
+        await ODPEindhoven().locations(
+            limit=101, parking_type=ParkingType.DISABLED_PARKING
+        )
