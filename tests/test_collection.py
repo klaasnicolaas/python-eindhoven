@@ -45,7 +45,7 @@ async def test_collection_pages() -> None:
     assert collection.total_count == len(collection.records) == 101
     assert collection.pages_fetched == 2
     assert collection.source_version == "opaque-version"
-    assert collection.records[0].spot_id == "1"
+    assert collection.records[0].id == "1"
     assert collection.records[0].source_attributes == first[0]
     assert collection.records[0].geometry.to_dict() == first[0]["geo_shape"]["geometry"]
     assert request.call_args_list[2].kwargs["params"]["offset"] == 100
@@ -289,7 +289,7 @@ async def test_locations_prefix() -> None:
             limit=101, parking_type=ParkingType.DISABLED_PARKING
         )
     assert len(spots) == 101
-    assert spots[0].spot_id == "1"
+    assert spots[0].id == "1"
     assert spots[0].source_attributes["straat"] is None
     assert spots[0].source_attributes["aantal"] is None
     assert spots[0].source_attributes["extra"] == "retained"

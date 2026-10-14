@@ -109,10 +109,10 @@ class ODPEindhoven:
                 raise ODPEindhovenResultsError(msg)
             total = count
             for record in batch:
-                if record.spot_id in ids:
+                if record.id in ids:
                     msg = "Eindhoven returned duplicate source IDs"
                     raise ODPEindhovenResultsError(msg)
-                ids.add(record.spot_id)
+                ids.add(record.id)
                 records.append(record)
         if not records:
             msg = "No parking locations were found"
@@ -181,10 +181,10 @@ class ODPEindhoven:
                 raise ODPEindhovenResultsError(msg)
             total = count
             for record in batch:
-                if record.spot_id in ids:
+                if record.id in ids:
                     msg = "Eindhoven returned duplicate source IDs"
                     raise ODPEindhovenResultsError(msg)
-                ids.add(record.spot_id)
+                ids.add(record.id)
                 records.append(record)
             pages += 1
         if await self.dataset_version() != version:
@@ -245,7 +245,7 @@ class ODPEindhoven:
                 raise ODPEindhovenResultsError(msg)
         return ParkingSpot.from_dict(
             {
-                "spot_id": str(object_id),
+                "id": str(object_id),
                 "source_attributes": item.copy(),
                 "geometry": geometry.copy(),
                 "data": {

@@ -168,7 +168,7 @@ def test_source_record_mashumaro_round_trip() -> None:
     }
     spot = ODPEindhoven._parking_spot(source, ParkingType.DISABLED_PARKING)
     assert isinstance(spot, ParkingSpot)
-    assert spot.spot_id == "42"
+    assert spot.id == "42"
     assert spot.source_attributes == source
     assert isinstance(spot.geometry, Geometry)
     assert isinstance(spot.data, ParkingData)
@@ -186,7 +186,7 @@ def test_collection_mashumaro_round_trip() -> None:
     payload = {
         "records": [
             {
-                "spot_id": "42",
+                "id": "42",
                 "source_attributes": {"objectid": 42, "aantal": None},
                 "data": {
                     "type_en_merk": ParkingType.DISABLED_PARKING.value,
