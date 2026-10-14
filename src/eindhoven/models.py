@@ -58,7 +58,7 @@ class Geometry(DataClassORJSONMixin):
 class ParkingSpot(DataClassORJSONMixin):
     """Original source record without consumer-specific parking interpretation."""
 
-    spot_id: str
+    id: str
     source_attributes: dict[str, Any]
     geometry: Geometry
     data: ParkingData

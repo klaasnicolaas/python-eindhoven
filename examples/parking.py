@@ -17,7 +17,7 @@ async def main() -> None:
         count: int = len(locations)
         for item in locations:
             print("__________________________")
-            print(f"Spot ID: {item.spot_id}")
+            print(f"Spot ID: {item.id}")
             print(f"Parking type: {item.data.parking_type}")
             print(f"Street: {item.data.street}")
             print(f"Number: {item.data.number}")
